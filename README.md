@@ -87,7 +87,7 @@ The platform governs the entire lifecycle of a municipal issue through 8 continu
 ### Stage 6: Field Operations Queue & Departmental Dispatch
 * Approved complaints move directly to the **Operations Queue** and are routed to one of 9 municipal boards (Roadway Maintenance, Water Drainage, Electrical Board, Sanitation, etc.).
 * Supervisors assign field officers and update statuses through the operational pipeline:
-  $$\text{NEW} \longrightarrow \text{ASSIGNED} \longrightarrow \text{IN\_PROGRESS} \longrightarrow \text{RESOLVED}$$
+
 
 ### Stage 7: Citizen Tracking & Immutable Audit Log
 * Citizens track ticket resolution in real time inside **"My Complaints"**.
