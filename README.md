@@ -11,10 +11,7 @@ A production-grade, full-stack municipal operations platform built with **FastAP
 1. Launch **Visual Studio Code**.
 2. Click **File -> Open Folder...** (or press `Ctrl+K, Ctrl+O`).
 3. Select the project directory:
-   ```
-   C:\Users\baluv\.gemini\antigravity\scratch\smart_civic_portal
-   ```
-   *(Or from terminal: `code C:\Users\baluv\.gemini\antigravity\scratch\smart_civic_portal`)*
+  
 
 ### Step 2: Ensure Prerequisites are Running
 1. **Python 3.10+** (Python 3.14 recommended).
