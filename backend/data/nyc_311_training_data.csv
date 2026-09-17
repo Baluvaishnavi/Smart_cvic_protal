@@ -1,0 +1,361 @@
+complaint_text,category,borough
+"There has been no street light near Gate 3 for almost a week and the road gets extremely dark at night.",Streetlight,Brooklyn
+"Streetlight fixture hanging precariously from pole after heavy wind.",Streetlight,Manhattan
+"Lamp post light out completely in front of residential building.",Streetlight,Queens
+"Streetlight pole knocked down by vehicle accident, wires exposed.",Streetlight,Bronx
+"Multiple streetlights dark along Atlantic Avenue creating pedestrian hazard.",Streetlight,Brooklyn
+"Street light blinking continuously like a strobe light keeping neighbors awake.",Streetlight,Staten Island
+"Dark street condition due to burnt out luminaire head on corner.",Streetlight,Manhattan
+"No lighting on public stairway connecting two avenues.",Streetlight,Bronx
+"Street light pole rusted through at base and leaning toward street.",Streetlight,Queens
+"Public lamp out on residential block for several consecutive nights.",Streetlight,Brooklyn
+"Street lights not turning on at dusk leaving entire avenue pitch black.",Streetlight,Manhattan
+"Overhead highway lighting fixture unlit causing hazardous driving conditions.",Streetlight,Queens
+"Bulb burned out on pedestrian walkway lamp near subway entrance.",Streetlight,Brooklyn
+"Flickering sodium street lamp turning on and off erratically.",Streetlight,Bronx
+"Street light photocell sensor broken so light stays off at night.",Streetlight,Staten Island
+"Damaged luminaire casing after severe lightning storm.",Streetlight,Manhattan
+"Total blackout of all streetlights along 4th Avenue corridor.",Streetlight,Brooklyn
+"Underpass tunnel ceiling lights non-functional creating dark dangerous zone.",Streetlight,Queens
+"Pedestrian safety lamp fixture smashed and unilluminated.",Streetlight,Bronx
+"Street pole light missing bulb and glass lens exposing electrical socket.",Streetlight,Staten Island
+"Deep pothole in middle lane of Broadway causing flat tires.",Pothole,Manhattan
+"Dangerous crater on crosswalk causing vehicles to swerve into oncoming traffic.",Pothole,Brooklyn
+"Pothole growing bigger after recent snow storm and road salt application.",Pothole,Queens
+"Large depression and crater in roadway near bus stop.",Pothole,Bronx
+"Tire blowout from sharp-edged pothole on highway off-ramp.",Pothole,Staten Island
+"Asphalt caved in creating six inch deep pothole right before intersection.",Pothole,Manhattan
+"Road surface cracked and crumbling into severe pothole hazard.",Pothole,Brooklyn
+"Multiple potholes along commercial corridor rattling passing cars.",Pothole,Queens
+"Sinkhole forming around utility manhole cover on street.",Pothole,Bronx
+"Deep roadway hole filled with rainwater disguising its severe depth.",Pothole,Brooklyn
+"Massive street crater near school crossing zone damaging car suspensions.",Pothole,Manhattan
+"Rough road surface with severe potholes spanning across two traffic lanes.",Pothole,Queens
+"Deep asphalt trench left unfilled by utility contractor after roadwork.",Pothole,Brooklyn
+"Pothole edge cracked sharp enough to puncture bicycle and motorcycle tires.",Pothole,Bronx
+"Sunken road depression causing vehicle undercarriage to scrape pavement.",Pothole,Staten Island
+"Pothole cluster at intersection creating hazardous obstacle course for drivers.",Pothole,Manhattan
+"Cavity in asphalt expanding rapidly due to heavy truck traffic.",Pothole,Queens
+"Damaged road pavement with deep gouges and jagged potholes.",Pothole,Brooklyn
+"Severe roadway crater right at highway entrance ramp merge point.",Pothole,Bronx
+"Unpaved road trench turning into jagged pothole after rainfall.",Pothole,Staten Island
+"Clean drinking water bubbling up continuously from street pavement.",Water Supply,Brooklyn
+"Water main break flooding intersection and sidewalk with running water.",Water Supply,Manhattan
+"Low water pressure across entire apartment building since morning.",Water Supply,Queens
+"Discolored brown tap water coming out of kitchen and bathroom faucets.",Water Supply,Bronx
+"Fire hydrant leaking heavy stream of water down the gutter.",Water Supply,Staten Island
+"Catch basin blocked with debris causing street flooding during rainfall.",Water Supply,Manhattan
+"Sewage backing up into residential basement drains smelling terrible.",Water Supply,Brooklyn
+"Water supply pipe burst freezing into ice sheet on roadway.",Water Supply,Queens
+"Broken water shutoff valve leaking water near curb line.",Water Supply,Bronx
+"Sewer manhole overflowing with wastewater during rainstorm.",Water Supply,Brooklyn
+"Underground water pipe leak washing away soil beneath street asphalt.",Water Supply,Manhattan
+"Storm sewer drain clogged with leaves causing water pooling across street.",Water Supply,Queens
+"Hydrant cap missing spraying pressurized water into passing vehicles.",Water Supply,Brooklyn
+"Strong foul sewer odor coming from corner catch basin.",Water Supply,Bronx
+"Tap water smelling strongly of chlorine and metallic taste.",Water Supply,Staten Island
+"Water main rupture creating river of water flowing down avenue.",Water Supply,Manhattan
+"Storm drain backing up into street creating standing pool of stagnant water.",Water Supply,Queens
+"Basement toilet and floor drain bubbling up wastewater.",Water Supply,Brooklyn
+"Water service line severed by construction crew leaving block without water.",Water Supply,Bronx
+"Uncovered manhole drain posing direct hazard to pedestrians and vehicles.",Water Supply,Staten Island
+"Piles of household garbage and black trash bags left on corner sidewalk.",Garbage & Sanitation,Manhattan
+"Commercial dumpster overflowing with rotting food waste and attracting rats.",Garbage & Sanitation,Brooklyn
+"Missed sanitation collection for two consecutive cycles on entire block.",Garbage & Sanitation,Queens
+"Illegal dumping of construction materials, drywall and broken furniture in alley.",Garbage & Sanitation,Bronx
+"Trash cans knocked over with garbage strewn across pedestrian path.",Garbage & Sanitation,Staten Island
+"Cardboard recycling boxes not picked up by sanitation department.",Garbage & Sanitation,Manhattan
+"Dead animal carcass on curb requiring immediate sanitation removal.",Garbage & Sanitation,Brooklyn
+"Litter and plastic waste accumulating around highway exit ramp.",Garbage & Sanitation,Queens
+"Overflowing city public litter basket spilling onto street corner.",Garbage & Sanitation,Bronx
+"Rotting organic waste bags leaking foul smelling liquid across crosswalk.",Garbage & Sanitation,Brooklyn
+"Dumped tires and automotive parts abandoned on vacant sidewalk lot.",Garbage & Sanitation,Manhattan
+"Sanitation truck missed organic compost bin collection.",Garbage & Sanitation,Queens
+"Heavy pile of unbagged yard waste and grass clippings dumped on curb.",Garbage & Sanitation,Brooklyn
+"Overflowing trash receptacle attracting rodents and pigeons.",Garbage & Sanitation,Bronx
+"Illegal dumping of discarded mattresses and electronics on sidewalk.",Garbage & Sanitation,Staten Island
+"Food waste leaking from torn trash bags creating severe public health hazard.",Garbage & Sanitation,Manhattan
+"Commercial restaurant dumping grease and grease traps into street gutter.",Garbage & Sanitation,Queens
+"Sanitation recyclables mixed with general refuse left uncollected.",Garbage & Sanitation,Brooklyn
+"Foul rotting garbage odor permeating entire commercial strip.",Garbage & Sanitation,Bronx
+"Dumped construction debris blocking wheelchair ramp on corner.",Garbage & Sanitation,Staten Island
+"Traffic lights flashing red in all four directions causing massive gridlock.",Traffic Signal,Manhattan
+"Pedestrian countdown walk signal not displaying illuminated walk figure.",Traffic Signal,Brooklyn
+"Traffic signal head turned sideways by storm winds facing wrong direction.",Traffic Signal,Queens
+"Traffic light completely blacked out with no power at busy intersection.",Traffic Signal,Bronx
+"Traffic signal stuck on green in one direction while cross street gets no light.",Traffic Signal,Staten Island
+"Red light bulb burnt out on main arterial avenue signal.",Traffic Signal,Manhattan
+"Left turn green arrow signal not activating during programmed sequence.",Traffic Signal,Queens
+"Pedestrian push button at crosswalk broken and hanging by wires.",Traffic Signal,Brooklyn
+"Traffic light timing sequence out of sync causing emergency vehicle delays.",Traffic Signal,Bronx
+"Signal controller cabinet door open with electrical wiring exposed.",Traffic Signal,Manhattan
+"Yellow amber light phase too short causing abrupt braking and accidents.",Traffic Signal,Brooklyn
+"Traffic signal pole struck by truck and leaning dangerously over crosswalk.",Traffic Signal,Queens
+"School crossing signal non-functional during morning school arrival hours.",Traffic Signal,Bronx
+"Traffic light cycling stuck on permanent red causing cars to run the light.",Traffic Signal,Staten Island
+"All traffic signals dark along three consecutive intersections.",Traffic Signal,Manhattan
+"Pedestrian audible beep signal for visually impaired broken.",Traffic Signal,Brooklyn
+"Traffic signal lens broken and visor missing from overhead unit.",Traffic Signal,Queens
+"Conflicting green signals displaying simultaneously creating extreme accident risk.",Traffic Signal,Bronx
+"Pedestrian countdown timer displaying corrupted LED numbers.",Traffic Signal,Staten Island
+"Traffic light hood detached and dangling above passing vehicles.",Traffic Signal,Manhattan
+"Sidewalk concrete slab lifted three inches by tree root trip hazard.",Broken Sidewalk,Brooklyn
+"Cracked and crumbling sidewalk outside elementary school entrance.",Broken Sidewalk,Manhattan
+"Curbing broken away leaving jagged concrete edge along parking lane.",Broken Sidewalk,Queens
+"Hole in sidewalk over vault grating unsafe for pedestrians and strollers.",Broken Sidewalk,Bronx
+"Uneven flagstones on sidewalk causing multiple elderly residents to trip.",Broken Sidewalk,Staten Island
+"Collapsed sidewalk section around utility access box.",Broken Sidewalk,Brooklyn
+"Sunken sidewalk slab pooling stagnant water after every rain.",Broken Sidewalk,Queens
+"Missing brick pavers on historic sidewalk causing hazardous walking surface.",Broken Sidewalk,Manhattan
+"Broken curb cut ramp blocking wheelchair accessibility at crosswalk.",Broken Sidewalk,Bronx
+"Sidewalk pavement severely fractured by heavy delivery truck driving over it.",Broken Sidewalk,Brooklyn
+"Deep hole in concrete sidewalk near bus stop creating severe trip hazard.",Broken Sidewalk,Manhattan
+"Loose bluestone sidewalk tiles wobbling when walked upon.",Broken Sidewalk,Brooklyn
+"Sidewalk curb smashed leaving sharp exposed rebar rod.",Broken Sidewalk,Queens
+"Depression in pedestrian walkway forming ankle twisting hazard.",Broken Sidewalk,Bronx
+"Cracked sidewalk flags outside public library needing replacement.",Broken Sidewalk,Staten Island
+"Pavement lifted around underground utility vault grating.",Broken Sidewalk,Manhattan
+"Pedestrian curb ramp crumbling with broken tactile warning pavers.",Broken Sidewalk,Brooklyn
+"Sidewalk slab buckled upward creating two inch tripping ledge.",Broken Sidewalk,Queens
+"Concrete sidewalk disintegrating into loose gravel and trip obstacles.",Broken Sidewalk,Bronx
+"Damaged sidewalk cellar door sunken below pavement level.",Broken Sidewalk,Staten Island
+"Large oak tree branch cracked and hanging dangerously over parked vehicles.",Trees & Parks,Brooklyn
+"Fallen tree completely blocking traffic across both roadway lanes.",Trees & Parks,Queens
+"Overgrown tree branches obscuring stop sign and street name sign.",Trees & Parks,Manhattan
+"Dead tree trunk leaning towards power lines on residential block.",Trees & Parks,Bronx
+"Playground swing set broken with sharp metal chains exposed in public park.",Trees & Parks,Staten Island
+"Tree roots breaking public park bench and fencing.",Trees & Parks,Brooklyn
+"Storm damage uprooted public tree damaging sidewalk and curb.",Trees & Parks,Queens
+"Dead tree limbs dropping onto public sidewalk during wind gusts.",Trees & Parks,Manhattan
+"Park lawn strewn with broken glass and vandalism.",Trees & Parks,Bronx
+"Overgrown shrubs obstructing visibility at corner intersection.",Trees & Parks,Staten Island
+"Heavy tree bough resting on utility cables threatening power failure.",Trees & Parks,Brooklyn
+"Hollow decaying street tree shedding large branches in wind.",Trees & Parks,Manhattan
+"Park playground climbing structure broken with exposed sharp edges.",Trees & Parks,Queens
+"Downed tree blocking building entrance after summer storm.",Trees & Parks,Bronx
+"Public park fountain non-functional with stagnant water accumulating.",Trees & Parks,Staten Island
+"Tree branches rubbing against third floor apartment bedroom windows.",Trees & Parks,Brooklyn
+"Cracked tree limb suspended directly above pedestrian park bench.",Trees & Parks,Manhattan
+"Severely damaged young street tree snapped in half by vandal.",Trees & Parks,Queens
+"Dead tree obstructing driveway access on quiet residential street.",Trees & Parks,Bronx
+"Playground rubber safety matting torn and missing exposing concrete.",Trees & Parks,Staten Island
+"Heavy jackhammering and concrete demolition at 2 AM violating noise curfew.",Noise & Disturbance,Manhattan
+"Loud music and bass vibrating apartment walls from unauthorized nightclub.",Noise & Disturbance,Brooklyn
+"Industrial diesel generator running continuous loud engine through the night.",Noise & Disturbance,Queens
+"Commercial rooftop ventilation fan emitting loud high-pitched mechanical screech.",Noise & Disturbance,Manhattan
+"After-hours construction work with heavy equipment operating on Sunday.",Noise & Disturbance,Bronx
+"Dog barking continuously for over four hours on residential balcony.",Noise & Disturbance,Staten Island
+"Loud outdoor party with amplified sound system past legal hours.",Noise & Disturbance,Brooklyn
+"Truck loading dock banging metal shipping containers before 6 AM.",Noise & Disturbance,Queens
+"Air conditioning chiller unit vibrating floorboards in adjacent apartment.",Noise & Disturbance,Manhattan
+"Excessive vehicle horn honking and car alarm ringing without stopping.",Noise & Disturbance,Bronx
+"Constant high decibel idling trucks parked on residential street overnight.",Noise & Disturbance,Brooklyn
+"Loud late night garbage container loading noise at 3 AM.",Noise & Disturbance,Manhattan
+"Building ventilation exhaust drone disturbing residents all night.",Noise & Disturbance,Queens
+"Motorcycle engine revving and racing on public street past midnight.",Noise & Disturbance,Bronx
+"Commercial laundry facility exhaust vibration shaking building walls.",Noise & Disturbance,Staten Island
+"Amplified megaphone street preaching exceeding legal decibel limits.",Noise & Disturbance,Manhattan
+"Construction site compressor running continuously over weekend.",Noise & Disturbance,Brooklyn
+"Unmuffled car exhaust blasting backfires on residential avenue.",Noise & Disturbance,Queens
+"Nightclub patrons yelling and screaming on sidewalk at closing time.",Noise & Disturbance,Manhattan
+"Loud outdoor condenser unit humming loudly next to bedroom window.",Noise & Disturbance,Bronx
+"Extensive spray paint graffiti across historic municipal library wall.",General Civic Issue,Manhattan
+"Public street name sign missing at intersection causing delivery confusion.",General Civic Issue,Brooklyn
+"Damaged public bus shelter with shattered glass panels.",General Civic Issue,Queens
+"Vandalized park monument with offensive tags and markings.",General Civic Issue,Bronx
+"Public bicycle rack bent and detached from ground anchors.",General Civic Issue,Staten Island
+"Municipal informational kiosk screen cracked and non-operational.",General Civic Issue,Manhattan
+"Street bench broken in half making seating impossible for commuters.",General Civic Issue,Brooklyn
+"Faded pedestrian crosswalk thermoplastic markings requiring repainting.",General Civic Issue,Queens
+"Damaged highway guardrail barrier after motor vehicle collision.",General Civic Issue,Bronx
+"Defaced public bulletin board and broken notice display case.",General Civic Issue,Manhattan
+"Historic public clock stopped and hands broken.",General Civic Issue,Brooklyn
+"Public mailbox tagged with graffiti and door jammed shut.",General Civic Issue,Queens
+"Municipal recycling depot signage illegible and rusted.",General Civic Issue,Bronx
+"Street banner torn and hanging loose across traffic lane.",General Civic Issue,Manhattan
+"Public drinking fountain handle broken off in city plaza.",General Civic Issue,Staten Island
+"Damaged bollard post bent into pedestrian walkway.",General Civic Issue,Brooklyn
+"City map display glass broken and tagged with spray paint.",General Civic Issue,Queens
+"Missing no parking regulatory sign creating parking confusion.",General Civic Issue,Bronx
+"Broken decorative street lamp post base plate detached.",General Civic Issue,Manhattan
+"Public emergency call box pedestal broken and leaning over.",General Civic Issue,Staten Island
+Street light on metal pole flickering continuously on residential corner,Streetlight,Brooklyn
+"No street light for 3 blocks on 5th avenue, area pitch black and unsafe",Streetlight,Manhattan
+"Street light pole base damaged by delivery truck, exposed wires",Streetlight,Queens
+Street lamp unlit opposite elementary school entrance creating safety risk,Streetlight,Bronx
+Streetlight lens broken and bulb hanging down loosely over road,Streetlight,Staten Island
+Overhead street lamp fixture completely dark at busy crosswalk,Streetlight,Brooklyn
+Street light knocked down onto sidewalk following storm,Streetlight,Queens
+Sodium street lamp going off and on erratically every two minutes,Streetlight,Manhattan
+Pedestrian pathway lighting pole broken at base and tilted,Streetlight,Bronx
+Underpass highway lighting failed creating hazardous dark road conditions,Streetlight,Queens
+High pressure sodium fixture burned out on residential street,Streetlight,Brooklyn
+Street light fixture detached and dangling by power electrical cord,Streetlight,Manhattan
+Street lights remaining off entire night leaving dark corridor,Streetlight,Staten Island
+Pedestrian safety pole lamp out outside subway station exit,Streetlight,Queens
+Lamp post damaged with open wiring panel accessible to pedestrians,Streetlight,Bronx
+Streetlight pole rusted out at ground level in danger of collapsing,Streetlight,Brooklyn
+Public stairway illumination non-operational between avenues,Streetlight,Manhattan
+Overhead arterial cobra head lamp dark over roadway intersection,Streetlight,Queens
+Street light fixture cycling intermittently throughout night,Streetlight,Bronx
+Total loss of roadway lighting on parkway bridge span,Streetlight,Staten Island
+Large crater on right lane of expressway damaging car tires,Pothole,Queens
+Deep pothole filled with water near bus stop on commercial boulevard,Pothole,Brooklyn
+Asphalt cave-in forming severe pothole in front of supermarket,Pothole,Bronx
+Sharp edged pothole caused vehicle rim damage and flat tire,Pothole,Manhattan
+Multiple consecutive potholes along arterial road rattling suspensions,Pothole,Staten Island
+Sunken road depression causing cars to bottom out violently,Pothole,Queens
+Deep asphalt trench across roadway left open after utility construction,Pothole,Brooklyn
+Severe roadway cavity right before pedestrian crosswalk,Pothole,Manhattan
+Cracked street asphalt crumbling into dangerous tire-puncturing crater,Pothole,Bronx
+Highway exit ramp has severe depression and pothole cluster,Pothole,Staten Island
+Pothole 8 inches deep in middle of roadway lane,Pothole,Brooklyn
+Street pavement eroded creating giant tire trap hole,Pothole,Queens
+Dangerous pavement gouge on avenue tearing hubcaps off vehicles,Pothole,Manhattan
+Road surface collapsed around storm sewer catch basin,Pothole,Bronx
+Massive crater on bridge approach tearing vehicle suspension parts,Pothole,Brooklyn
+Pothole cluster spanning entire width of two lane avenue,Pothole,Queens
+Asphalt depression growing rapidly due to heavy bus traffic,Pothole,Manhattan
+Roadway trench left unpaved by contractor causing alignment damage,Pothole,Staten Island
+Deep crater on residential roadway puncturing car tires,Pothole,Bronx
+Street pavement fractured and sinking into cavity beneath,Pothole,Brooklyn
+Fire hydrant leaking huge stream of clean water into street gutter,Water Supply,Brooklyn
+Main water pipe burst under street causing roadway flooding and low pressure,Water Supply,Manhattan
+Brown tap water with rusty odor flowing from residential faucets,Water Supply,Queens
+Zero water pressure in apartment building since morning,Water Supply,Bronx
+Sewer manhole overflowing with foul wastewater onto sidewalk,Water Supply,Brooklyn
+Street water valve leaking high pressure water into basement,Water Supply,Manhattan
+Water main break causing sinkhole risk and road closure,Water Supply,Queens
+Storm drain catch basin completely clogged causing street flash flooding,Water Supply,Staten Island
+Continuous water gushing from underground main onto road surface,Water Supply,Bronx
+Discolored cloudy drinking water coming from kitchen tap,Water Supply,Brooklyn
+Hydrant open and gushing full force flooding avenue intersection,Water Supply,Manhattan
+Sewage backing up into basement floor drains with toxic odor,Water Supply,Queens
+Water shut off unexpectedly to entire residential city block,Water Supply,Bronx
+Storm sewer grate blocked by debris causing ankle deep ponding,Water Supply,Staten Island
+Leaking curb stop shutoff valve spraying water across sidewalk,Water Supply,Brooklyn
+Dirty yellow water from kitchen faucet unfit for drinking or cooking,Water Supply,Manhattan
+Ruptured water transmission main flooding traffic lanes,Water Supply,Queens
+Foul sewage odor venting from street storm sewer manhole cover,Water Supply,Bronx
+Municipal water pipe leaking underground causing pavement subsidence,Water Supply,Brooklyn
+No hot or cold water coming from pipes in residential building,Water Supply,Manhattan
+Piles of uncollected household garbage bags attracting rodents on curb,Garbage & Sanitation,Brooklyn
+Public street trash can overflowing with food waste and litter across pavement,Garbage & Sanitation,Manhattan
+Illegal dumping of discarded construction debris and old mattresses in alley,Garbage & Sanitation,Queens
+Dead animal carcass on side of roadway decomposing in heat,Garbage & Sanitation,Bronx
+Recycling bins skipped for second consecutive week on residential block,Garbage & Sanitation,Staten Island
+Commercial food waste bags torn open and scattered across sidewalk,Garbage & Sanitation,Brooklyn
+Bulk furniture and discarded appliances dumped illegally on sidewalk,Garbage & Sanitation,Queens
+Dumpster overflowing behind grocery store emitting noxious odor,Garbage & Sanitation,Bronx
+Litter and dirty food containers strewn across public sidewalk,Garbage & Sanitation,Manhattan
+Sanitation truck missed scheduled garbage collection on entire avenue,Garbage & Sanitation,Brooklyn
+Decomposing garbage pile attracting rats and flies outside building,Garbage & Sanitation,Queens
+"Illegal dumping of tires, paint cans, and scrap wood on vacant lot",Garbage & Sanitation,Bronx
+Public litter basket knocked over with trash blowing into street,Garbage & Sanitation,Manhattan
+Commercial waste left uncollected over long holiday weekend,Garbage & Sanitation,Brooklyn
+Dead raccoon lying on curb gutter attracting scavengers,Garbage & Sanitation,Staten Island
+Overflowing recycling receptacles spilling glass bottles across sidewalk,Garbage & Sanitation,Queens
+Grease and trash spill on sidewalk from commercial restaurant dumpster,Garbage & Sanitation,Manhattan
+Construction rubble dumped on dead-end street blocking roadway,Garbage & Sanitation,Bronx
+"Discarded carpet, drywall, and renovation debris on sidewalk",Garbage & Sanitation,Brooklyn
+Garbage bags stacked 6 feet high on curb blocking pedestrian passage,Garbage & Sanitation,Queens
+Traffic light completely out at major four-way intersection causing gridlock,Traffic Signal,Manhattan
+Pedestrian walk don't walk signal head smashed and dark,Traffic Signal,Brooklyn
+Traffic signal stuck permanently on red light causing massive backup,Traffic Signal,Queens
+Signal light twisted 90 degrees by wind facing wrong direction,Traffic Signal,Bronx
+Flashing red signal light at school intersection not alternating properly,Traffic Signal,Staten Island
+Traffic control signal knocked down by delivery van lying on curb,Traffic Signal,Brooklyn
+Pedestrian crossing push button broken and detached from signal post,Traffic Signal,Manhattan
+All traffic signal heads unlit at highway junction causing near misses,Traffic Signal,Queens
+Traffic lights out of synchronization causing severe traffic jams,Traffic Signal,Bronx
+Damaged signal controller cabinet with doors open and wiring exposed,Traffic Signal,Staten Island
+Left turn green arrow signal lens burned out causing hesitation,Traffic Signal,Brooklyn
+Traffic signal pole leaning precariously after truck strike,Traffic Signal,Queens
+Pedestrian countdown signal timer broken and unreadable,Traffic Signal,Manhattan
+Traffic light flickering erratically between red and green simultaneously,Traffic Signal,Bronx
+Signal light head hanging by electrical harness above roadway lane,Traffic Signal,Brooklyn
+Yellow signal light out leaving no warning before red phase,Traffic Signal,Queens
+Intersection signal blacked out following utility power surge,Traffic Signal,Manhattan
+Overhead mast arm traffic signal swinging violently in wind,Traffic Signal,Bronx
+"School crosswalk signal button missing, unable to trigger walk sign",Traffic Signal,Staten Island
+Bicycle specific traffic signal head destroyed by collision,Traffic Signal,Brooklyn
+Severe sidewalk trip hazard caused by thick tree root lifting concrete slab,Broken Sidewalk,Brooklyn
+Cracked and uneven sidewalk flags causing pedestrians to stumble,Broken Sidewalk,Queens
+Hole in concrete sidewalk where utility vault cover is broken,Broken Sidewalk,Manhattan
+Pedestrian curb ramp crumbling with sharp chunks of concrete loose,Broken Sidewalk,Bronx
+Sunken concrete sidewalk slab creates deep tripping ledge,Broken Sidewalk,Staten Island
+Broken sidewalk curb missing large section exposing dirt underneath,Broken Sidewalk,Brooklyn
+Sidewalk collapsing over basement cellar entrance grate,Broken Sidewalk,Manhattan
+Buckled concrete pavement posing severe accessibility barrier for wheelchairs,Broken Sidewalk,Queens
+Pedestrian walkway cracked into loose rubble in front of store,Broken Sidewalk,Bronx
+Missing sidewalk paving stones leaving large unpaved dirt hole,Broken Sidewalk,Brooklyn
+Curb cut destroyed and crumbled making stroller access impossible,Broken Sidewalk,Queens
+Deep crack in sidewalk slab spanning entire walkway width,Broken Sidewalk,Manhattan
+Pavement slab displaced upwards by three inches creating trip ledge,Broken Sidewalk,Bronx
+Concrete sidewalk spalling with exposed rebar catching foot traffic,Broken Sidewalk,Brooklyn
+"Utility trench on sidewalk improperly backfilled, sinking into hole",Broken Sidewalk,Queens
+Damaged curb stone broken into pieces creating hazardous trip edge,Broken Sidewalk,Staten Island
+Sidewalk vault glass pavers shattered and falling into basement,Broken Sidewalk,Manhattan
+Uneven flagstones causing multiple pedestrian falls and injuries,Broken Sidewalk,Bronx
+Crumbling sidewalk edge adjacent to roadway catching shoes,Broken Sidewalk,Brooklyn
+Deep cavity in concrete walkway following water service repair,Broken Sidewalk,Queens
+Large fallen tree limb blocking pedestrian pathway in city park,Trees & Parks,Brooklyn
+Dead tree leaning dangerously over parked cars and utility cables,Trees & Parks,Queens
+City street tree branches overgrown obscuring stop sign and traffic light,Trees & Parks,Manhattan
+Park playground swing broken with jagged metal edge endangering children,Trees & Parks,Bronx
+Fallen tree crushed park bench after thunderstorm,Trees & Parks,Staten Island
+Overgrown tree roots penetrating and lifting municipal curb,Trees & Parks,Brooklyn
+Diseased tree with hollow rotting trunk threatening to collapse onto street,Trees & Parks,Queens
+Broken playground slide in public park with cracked plastic surface,Trees & Parks,Bronx
+Park lawn unmaintained with knee high weeds and overgrown brush,Trees & Parks,Manhattan
+Tree branch resting on electrical wires causing sparks and fire risk,Trees & Parks,Staten Island
+Large split in oak tree trunk threatening to drop branch onto house,Trees & Parks,Brooklyn
+Park drinking fountain vandalized and leaking water into sandbox,Trees & Parks,Queens
+Dead street tree completely dried out shedding large branches,Trees & Parks,Manhattan
+Park safety rubber tiles peeling up around playground climbing gym,Trees & Parks,Bronx
+Overhanging tree bough brushing against passing city buses,Trees & Parks,Brooklyn
+Fallen tree blocking vehicle access to public park parking area,Trees & Parks,Queens
+Tree stump left unground on public verge creating obstacle,Trees & Parks,Staten Island
+Heavy tree branches snapped during ice storm hanging over roadway,Trees & Parks,Bronx
+Park tennis court perimeter chain link fence torn down and rusted,Trees & Parks,Manhattan
+Cracked limb suspended in tree canopy in danger of falling on walkers,Trees & Parks,Brooklyn
+Extremely loud construction noise and jackhammering before 7 am on Sunday,Noise & Disturbance,Manhattan
+Loud commercial music and heavy bass vibrating residential windows at 2 am,Noise & Disturbance,Brooklyn
+Neighbor playing loud stereo and screaming inside residential building all night,Noise & Disturbance,Queens
+Commercial rooftop ventilation unit producing continuous high pitched screech,Noise & Disturbance,Manhattan
+Bar patio blasting loud amplified music past legal curfew hours,Noise & Disturbance,Brooklyn
+Car alarm blaring continuously for three hours on residential street,Noise & Disturbance,Bronx
+Illegal party with amplified sound system on residential rooftop,Noise & Disturbance,Manhattan
+Excessive vehicle horn honking and shouting outside apartment complex,Noise & Disturbance,Queens
+Construction crew operating heavy generator all night without permit,Noise & Disturbance,Brooklyn
+Loud dog barking non-stop in adjacent yard disturbing sleep,Noise & Disturbance,Staten Island
+Nightclub operating sound equipment beyond licensed decibel limit,Noise & Disturbance,Manhattan
+Lawn mower and leaf blower engine operated at 5:30 am on weekend,Noise & Disturbance,Queens
+Industrial exhaust fan vibrating building wall causing continuous drone,Noise & Disturbance,Brooklyn
+Live band playing unamplified drums and brass in alleyway late at night,Noise & Disturbance,Bronx
+Continuous horn honking from delivery trucks idling on residential street,Noise & Disturbance,Manhattan
+"Loud shouting, arguing, and amplified music from bar patrons outdoors",Noise & Disturbance,Brooklyn
+Heavy construction jackhammer starting before permitted morning hour,Noise & Disturbance,Queens
+Building boiler room emitting loud hammering vibration into apartments,Noise & Disturbance,Bronx
+Street musicians using high powered amplifiers on residential sidewalk,Noise & Disturbance,Manhattan
+Ice cream truck song playing continuously on loop at maximum volume,Noise & Disturbance,Brooklyn
+Public bus shelter glass panel shattered with shards covering seating area,General Civic Issue,Brooklyn
+Graffiti vandalized historical building facade and municipal property,General Civic Issue,Manhattan
+City street sign missing at intersection making navigation impossible,General Civic Issue,Queens
+Abandoned vehicle without license plates parked on public street for months,General Civic Issue,Bronx
+Damaged postal collection mailbox pried open on corner,General Civic Issue,Staten Island
+Street name sign illegible due to spray paint vandalism,General Civic Issue,Brooklyn
+Public parking meter vandalized and jammed rejecting payments,General Civic Issue,Manhattan
+Bicycle lane barrier posts knocked down by vehicle and scattered,General Civic Issue,Queens
+Public notice board shattered and vandalized in town square,General Civic Issue,Bronx
+Abandoned stripped vehicle blocking public parking space,General Civic Issue,Staten Island
+City regulatory No Parking sign fallen off pole onto sidewalk,General Civic Issue,Brooklyn
+Bus stop bench broken with sharp splinters exposing pedestrians to injury,General Civic Issue,Queens
+Defaced public monument spray painted with offensive slurs,General Civic Issue,Manhattan
+Traffic speed limit sign turned backward facing away from drivers,General Civic Issue,Bronx
+"Public telephone kiosk vandalized, handset ripped out and glass broken",General Civic Issue,Brooklyn
+Abandoned derelict boat trailer left on public street without registration,General Civic Issue,Staten Island
+Crosswalk guidance tactile paving tiles peeling up at intersection,General Civic Issue,Queens
+Street direction sign obscured by illegal promotional stickers,General Civic Issue,Manhattan
+Bicycle parking rack torn out of pavement bolts and lying flat,General Civic Issue,Bronx
+Municipal trash receptacle chained to lamp post damaged and bent,General Civic Issue,Brooklyn

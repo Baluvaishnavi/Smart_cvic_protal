@@ -1,0 +1,58 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Smart Civic Portal (Web Server)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder};${workspaceFolder}/backend",
+                "MONGODB_URI": "mongodb://localhost:27017"
+            }
+        },
+        {
+            "name": "Train ML Model (Ensemble 91.7%)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/train_model.py",
+            "args": [
+                "--algorithm",
+                "ensemble"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder};${workspaceFolder}/backend"
+            }
+        },
+        {
+            "name": "Train on 1.5GB Streaming Dataset",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/train_large_dataset.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder};${workspaceFolder}/backend"
+            }
+        },
+        {
+            "name": "Run All Pytest Tests",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "tests/",
+                "-v"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder};${workspaceFolder}/backend"
+            }
+        }
+    ]
+}

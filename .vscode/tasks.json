@@ -1,0 +1,38 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Smart Civic Portal Server",
+            "type": "shell",
+            "command": "python run.py",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Run All Tests (Pytest)",
+            "type": "shell",
+            "command": "python -m pytest tests/ -v",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Train ML Model (Ensemble)",
+            "type": "shell",
+            "command": "python train_model.py --algorithm ensemble",
+            "problemMatcher": []
+        },
+        {
+            "label": "Train 1.5GB Streaming Dataset",
+            "type": "shell",
+            "command": "python scripts/train_large_dataset.py",
+            "problemMatcher": []
+        }
+    ]
+}

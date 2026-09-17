@@ -1,0 +1,95 @@
+{
+  "algorithm_key": "ensemble",
+  "model_type": "Soft Voting Multi-Model Ensemble (LinearSVC + Logistic Regression + ComplementNB)",
+  "trained_at": "2026-09-16T04:11:23.341955+00:00",
+  "dataset_source": "nyc_311_training_data.csv",
+  "total_samples": 360,
+  "train_samples": 288,
+  "test_samples": 72,
+  "accuracy": 91.7,
+  "cv_accuracy_5fold": 91.4,
+  "cv_std_5fold": 1.8,
+  "precision_weighted": 91.7,
+  "recall_weighted": 91.7,
+  "f1_weighted": 91.5,
+  "classes": [
+    "Broken Sidewalk",
+    "Garbage & Sanitation",
+    "General Civic Issue",
+    "Noise & Disturbance",
+    "Pothole",
+    "Streetlight",
+    "Traffic Signal",
+    "Trees & Parks",
+    "Water Supply"
+  ],
+  "class_distribution": {
+    "Broken Sidewalk": 40,
+    "Garbage & Sanitation": 40,
+    "General Civic Issue": 40,
+    "Noise & Disturbance": 40,
+    "Pothole": 40,
+    "Streetlight": 40,
+    "Traffic Signal": 40,
+    "Trees & Parks": 40,
+    "Water Supply": 40
+  },
+  "per_class_metrics": {
+    "Broken Sidewalk": {
+      "precision": 88.9,
+      "recall": 100.0,
+      "f1_score": 94.1,
+      "support": 8.0
+    },
+    "Garbage & Sanitation": {
+      "precision": 100.0,
+      "recall": 87.5,
+      "f1_score": 93.3,
+      "support": 8.0
+    },
+    "General Civic Issue": {
+      "precision": 71.4,
+      "recall": 62.5,
+      "f1_score": 66.7,
+      "support": 8.0
+    },
+    "Noise & Disturbance": {
+      "precision": 100.0,
+      "recall": 87.5,
+      "f1_score": 93.3,
+      "support": 8.0
+    },
+    "Pothole": {
+      "precision": 100.0,
+      "recall": 100.0,
+      "f1_score": 100.0,
+      "support": 8.0
+    },
+    "Streetlight": {
+      "precision": 87.5,
+      "recall": 87.5,
+      "f1_score": 87.5,
+      "support": 8.0
+    },
+    "Traffic Signal": {
+      "precision": 88.9,
+      "recall": 100.0,
+      "f1_score": 94.1,
+      "support": 8.0
+    },
+    "Trees & Parks": {
+      "precision": 88.9,
+      "recall": 100.0,
+      "f1_score": 94.1,
+      "support": 8.0
+    },
+    "Water Supply": {
+      "precision": 100.0,
+      "recall": 100.0,
+      "f1_score": 100.0,
+      "support": 8.0
+    }
+  },
+  "status": "ready",
+  "model_artifact": "trained_classifier.joblib"
+}

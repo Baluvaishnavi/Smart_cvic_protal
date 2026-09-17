@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Civic Complaint Portal - Municipal Operations & Citizen Services</title>
+  
+  <!-- Tailwind CSS & Inter Font -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/static/css/styles.css" />
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- Top Navigation & Authority Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Municipal Seal -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-700 to-indigo-900 text-white flex items-center justify-center font-black text-lg shadow-md shadow-blue-500/20">
+          🏛️
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-black text-sm sm:text-base tracking-tight text-slate-900 leading-none">
+              Civic Complaint Portal
+            </h1>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200">
+              OFFICIAL
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-500 font-medium">Municipal Operations & Citizen Services Directorate</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Role Controlled) -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
+        <button id="tab-citizen-btn" class="nav-tab px-3.5 py-1.5 rounded-lg bg-white shadow-sm text-blue-700 font-bold transition flex items-center gap-1.5" data-target="view-citizen">
+          <span>📝</span> <span>Report an Issue</span>
+        </button>
+        <button id="tab-my-complaints-btn" class="nav-tab px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5" data-target="view-my-complaints">
+          <span>📍</span> <span>My Submitted Complaints</span>
+        </button>
+        <button id="tab-approvals-btn" class="nav-tab px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5 hidden" data-target="view-approvals">
+          <span>🛡️</span> <span>Approvals</span>
+          <span id="nav-badge-approvals" class="px-1.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500 text-white hidden">0</span>
+        </button>
+        <button id="tab-admin-btn" class="nav-tab px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5 hidden" data-target="view-admin">
+          <span>⚡</span> <span>Operations Queue</span>
+        </button>
+        <button id="tab-analytics-btn" class="nav-tab px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5 hidden" data-target="view-analytics">
+          <span>📊</span> <span>Executive Analytics & SLA</span>
+        </button>
+      </nav>
+
+      <!-- Authentication Header Widget -->
+      <div id="auth-header-widget" class="flex items-center gap-3">
+        <!-- Logged Out View -->
+        <div id="auth-logged-out" class="flex items-center gap-2">
+          <button onclick="window.Auth.openAuthModal('login')" class="px-3.5 py-1.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition shadow-sm">
+            Sign In
+          </button>
+          <button onclick="window.Auth.openAuthModal('register')" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm shadow-blue-500/20">
+            Register Account
+          </button>
+        </div>
+
+        <!-- Logged In View -->
+        <div id="auth-logged-in" class="hidden flex items-center gap-3">
+          <div class="text-right hidden sm:block">
+            <p id="auth-user-name" class="text-xs font-bold text-slate-900 leading-tight">Sarah Jenkins</p>
+            <span id="auth-role-badge" class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 inline-block mt-0.5">
+              VERIFIED CITIZEN
+            </span>
+          </div>
+          <button onclick="window.Auth.logout()" class="px-2.5 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-600 hover:text-red-600 text-xs font-semibold transition shadow-sm" title="Sign out of account">
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Row -->
+    <div class="md:hidden flex items-center justify-around border-t border-slate-100 px-2 py-1.5 bg-slate-50 text-[11px] font-semibold">
+      <button class="nav-tab px-2.5 py-1 rounded-lg text-blue-700 font-bold" data-target="view-citizen">Report</button>
+      <button class="nav-tab px-2.5 py-1 rounded-lg text-slate-600" data-target="view-my-complaints">My Complaints</button>
+      <button id="tab-approvals-mobile" class="nav-tab px-2.5 py-1 rounded-lg text-slate-600 hidden" data-target="view-approvals">Approvals</button>
+      <button id="tab-admin-mobile" class="nav-tab px-2.5 py-1 rounded-lg text-slate-600 hidden" data-target="view-admin">Operations</button>
+      <button id="tab-analytics-mobile" class="nav-tab px-2.5 py-1 rounded-lg text-slate-600 hidden" data-target="view-analytics">Analytics</button>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: CITIZEN REPORT AN ISSUE            -->
+    <!-- ========================================== -->
+    <section id="view-citizen" class="space-y-6">
+      
+      <!-- Official Municipal Header Banner -->
+      <div class="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-950 rounded-2xl p-6 text-white shadow-md border border-slate-800 relative overflow-hidden">
+        <div class="relative z-10 max-w-3xl">
+          <span class="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-200 text-[11px] font-semibold border border-blue-400/30 inline-block mb-2">
+            Civic Complaint Portal &bull; Public Works & Operations
+          </span>
+          <h2 class="text-xl sm:text-2xl font-black tracking-tight text-white">Report a Civic Problem or Infrastructure Defect</h2>
+          <p class="mt-1.5 text-xs sm:text-sm text-slate-200 leading-relaxed">
+            Submit service requests for potholes, broken streetlights, water supply leaks, traffic signal failures, or sanitation hazards. Describe your issue in plain words to receive automatic departmental routing and live municipal tracking.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Complaint Submission Form (Col 1-7) -->
+        <div class="lg:col-span-7 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-5">
+          <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <span>📝 Official Service Request Form</span>
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">Please provide accurate details to ensure rapid field crew dispatch.</p>
+            </div>
+            <span class="text-[11px] font-semibold text-slate-400">Non-Emergency</span>
+          </div>
+
+          <!-- Citizen Contact Information Row -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <div>
+              <label class="text-[11px] font-bold text-slate-600 block mb-1">Citizen Name</label>
+              <input type="text" id="input-citizen-name" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs bg-white focus:ring-1 focus:ring-blue-500" placeholder="Your Name" />
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-slate-600 block mb-1">Email Address</label>
+              <input type="email" id="input-citizen-email" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs bg-white focus:ring-1 focus:ring-blue-500" placeholder="your.email@domain.com" />
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-slate-600 block mb-1">Contact Phone (Optional)</label>
+              <input type="tel" id="input-citizen-phone" placeholder="e.g. (555) 019-2834" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs bg-white focus:ring-1 focus:ring-blue-500" />
+            </div>
+          </div>
+
+          <!-- Freeform Citizen Description & Smart Assistant -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-slate-700">Detailed Problem Description</label>
+              <button id="btn-ai-autofill" type="button" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg text-xs font-bold shadow-sm transition flex items-center gap-1">
+                <span>⚡ Smart Category Suggestions</span>
+              </button>
+            </div>
+            <textarea id="input-raw-desc" rows="3" class="w-full rounded-xl border border-slate-300 p-3 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition placeholder:text-slate-400"
+              placeholder="Describe the issue, street address, and approximate duration (e.g. There has been no street light near Gate 3 for almost a week and the road gets extremely dark)..."></textarea>
+            <div id="ai-status-indicator" class="hidden text-xs text-blue-700 font-medium flex items-center gap-1">
+              <svg class="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+              Analyzing municipal complaint text & routing...
+            </div>
+          </div>
+
+          <!-- Assistive Result Feedback Banner -->
+          <div id="ai-result-banner" class="hidden p-3.5 rounded-xl border"></div>
+
+          <!-- Category Quick Chips -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label class="text-xs font-bold text-slate-700 block">Category Selection</label>
+              <span class="text-[11px] text-slate-400 font-medium">Select preset or type custom below</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <button type="button" class="cat-chip p-2 rounded-lg border border-slate-200 text-left text-xs font-medium hover:border-blue-300 transition flex items-center gap-2 ring-2 ring-blue-600 bg-blue-50" data-category="Streetlight">
+                <span>💡</span> Streetlight
+              </button>
+              <button type="button" class="cat-chip p-2 rounded-lg border border-slate-200 text-left text-xs font-medium hover:border-blue-300 transition flex items-center gap-2" data-category="Pothole">
+                <span>🕳️</span> Pothole
+              </button>
+              <button type="button" class="cat-chip p-2 rounded-lg border border-slate-200 text-left text-xs font-medium hover:border-blue-300 transition flex items-center gap-2" data-category="Water Supply">
+                <span>💧</span> Water Supply
+              </button>
+              <button type="button" class="cat-chip p-2 rounded-lg border border-slate-200 text-left text-xs font-medium hover:border-blue-300 transition flex items-center gap-2" data-category="Garbage & Sanitation">
+                <span>🗑️</span> Sanitation
+              </button>
+              <button type="button" class="cat-chip p-2 rounded-lg border border-slate-200 text-left text-xs font-medium hover:border-blue-300 transition flex items-center gap-2" data-category="Traffic Signal">
+                <span>🚦</span> Traffic Signal
+              </button>
+              <button type="button" class="cat-chip p-2 rounded-lg border border-slate-200 text-left text-xs font-medium hover:border-blue-300 transition flex items-center gap-2" data-category="Broken Sidewalk">
+                <span>🚶</span> Sidewalk
+              </button>
+              <button type="button" class="cat-chip p-2 rounded-lg border border-slate-200 text-left text-xs font-medium hover:border-blue-300 transition flex items-center gap-2" data-category="Trees & Parks">
+                <span>🌳</span> Trees / Parks
+              </button>
+              <button type="button" class="cat-chip p-2 rounded-lg border border-slate-200 text-left text-xs font-medium hover:border-blue-300 transition flex items-center gap-2" data-category="Noise & Disturbance">
+                <span>📢</span> Noise
+              </button>
+              <button type="button" class="cat-chip p-2 rounded-lg border border-dashed border-amber-300 bg-amber-50/60 hover:bg-amber-100/80 text-left text-xs font-medium hover:border-amber-400 transition flex items-center gap-2 text-amber-900" data-category="OTHER">
+                <span>✏️</span> Other (Custom)
+              </button>
+            </div>
+
+            <!-- Manual Custom Category Box -->
+            <div id="custom-category-box" class="hidden mt-2.5 p-3 rounded-xl bg-amber-50/80 border border-amber-200 shadow-sm transition-all">
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="input-custom-category" class="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                  <span>✍️</span> <span>Type Custom Civic Category</span>
+                </label>
+                <span class="text-[10px] font-bold text-amber-800 bg-amber-200/60 px-2 py-0.5 rounded-full">Custom Category</span>
+              </div>
+              <input type="text" id="input-custom-category" placeholder="e.g. Stray Animal Rescue, Illegal Dumping, Public Drainage, Encroachment..." class="w-full rounded-lg border border-amber-300 p-2.5 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none bg-white text-slate-800 placeholder:text-slate-400 font-medium" />
+              <p class="text-[11px] text-amber-700 mt-1">If your issue is not listed above, type any civic category manually here. It will be routed directly to the Municipal Operations Directorate.</p>
+            </div>
+          </div>
+
+          <!-- Submission Form Fields -->
+          <form id="complaint-form" class="space-y-4 pt-2">
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Issue Title / Summary</label>
+              <input type="text" id="input-title" required class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+                placeholder="e.g. Non-functional streetlight creating dark hazard on pathway" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Municipal Category</label>
+                <select id="select-category" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                  <option value="Streetlight">Streetlight</option>
+                  <option value="Pothole">Pothole</option>
+                  <option value="Water Supply">Water Supply</option>
+                  <option value="Garbage & Sanitation">Garbage & Sanitation</option>
+                  <option value="Traffic Signal">Traffic Signal</option>
+                  <option value="Broken Sidewalk">Broken Sidewalk</option>
+                  <option value="Trees & Parks">Trees & Parks</option>
+                  <option value="Noise & Disturbance">Noise & Disturbance</option>
+                  <option value="General Civic Issue">General Civic Issue</option>
+                  <option value="OTHER">✏️ Other (Type Custom Category Below)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Reported Urgency Level</label>
+                <select id="select-urgency" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                  <option value="LOW">Low (Routine maintenance)</option>
+                  <option value="MEDIUM" selected>Medium (Standard civic priority)</option>
+                  <option value="HIGH">High (Potential safety hazard)</option>
+                  <option value="CRITICAL">Critical (Immediate danger)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Street Address or Landmark</label>
+                <input type="text" id="input-address" required class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+                  placeholder="e.g. 100 Main Street & Civic Square" />
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Municipal Zone / District</label>
+                <select id="select-borough" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                  <option value="Central Ward">Central Ward</option>
+                  <option value="North District">North District</option>
+                  <option value="East Sector">East Sector</option>
+                  <option value="South District">South District</option>
+                  <option value="West Sector">West Sector</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-blue-500/20 flex items-center justify-center gap-2">
+              <span>🚀 Submit Official Service Request</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Service Request Guidelines & Nearby Reports (Col 8-12) -->
+        <div class="lg:col-span-5 space-y-5">
+          <!-- Municipal SLA & Standards Card -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <span>⏱️ Service Level Targets (SLA)</span>
+              </h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">STANDARDS</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="flex items-center gap-1.5 font-bold text-slate-800 mb-0.5">
+                  <span>💡</span> <span>Streetlights</span>
+                </div>
+                <p class="text-[11px] text-slate-500 font-medium">Target: <strong>48 Hours</strong></p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="flex items-center gap-1.5 font-bold text-slate-800 mb-0.5">
+                  <span>🕳️</span> <span>Potholes</span>
+                </div>
+                <p class="text-[11px] text-slate-500 font-medium">Target: <strong>24 Hours</strong></p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="flex items-center gap-1.5 font-bold text-slate-800 mb-0.5">
+                  <span>💧</span> <span>Water Supply</span>
+                </div>
+                <p class="text-[11px] text-slate-500 font-medium">Target: <strong>12 Hours</strong></p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="flex items-center gap-1.5 font-bold text-slate-800 mb-0.5">
+                  <span>🗑️</span> <span>Sanitation</span>
+                </div>
+                <p class="text-[11px] text-slate-500 font-medium">Target: <strong>24 Hours</strong></p>
+              </div>
+            </div>
+
+            <div class="p-3 bg-blue-50/70 rounded-xl border border-blue-200/60 text-[11px] text-blue-900 leading-relaxed">
+              <strong>Municipal Review Guarantee:</strong> All incoming complaints are evaluated by the municipal administrator prior to field crew dispatch. You will receive an official reference ID to track live milestones.
+            </div>
+          </div>
+
+          <!-- Nearby Existing Issues ("I Also Have This Issue" Upvoting) -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+              <h3 class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <span>👥 Existing Reports in This Zone</span>
+              </h3>
+              <span class="text-[10px] font-semibold text-blue-600 uppercase tracking-wide">Duplicate Escalation</span>
+            </div>
+            
+            <div id="nearby-issues-list" class="space-y-2.5 max-h-[260px] overflow-y-auto pr-1">
+              <div class="p-4 text-center text-slate-400 text-xs">Loading nearby complaints...</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: MY SUBMITTED COMPLAINTS & TRACKING -->
+    <!-- ========================================== -->
+    <section id="view-my-complaints" class="hidden space-y-6">
+      
+      <!-- Dedicated Citizen Banner -->
+      <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 rounded-2xl p-6 text-white shadow-md border border-slate-800">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-semibold border border-emerald-500/30 inline-block mb-1.5">
+              Citizen Tracking Console
+            </span>
+            <h2 class="text-xl sm:text-2xl font-black text-white">My Submitted Complaints & Live Progress</h2>
+            <p class="text-xs text-slate-200 mt-1">
+              Track the official approval status, assigned field technician, and resolution milestone timeline for your service requests.
+            </p>
+          </div>
+          <button onclick="window.CitizenPortal.loadMyComplaints()" class="self-start sm:self-auto px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold border border-white/20 transition flex items-center gap-1.5">
+            <span>🔄</span> <span>Refresh My List</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Status Filter & Search -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
+        <div class="relative w-full sm:w-72">
+          <input type="text" id="my-search-input" placeholder="Search my tickets by ID, title, address..." class="w-full rounded-xl border border-slate-300 pl-8 pr-3 py-2 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          <span class="absolute left-2.5 top-2.5 text-slate-400 text-xs">🔍</span>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <label class="text-xs font-bold text-slate-600 whitespace-nowrap">Filter Status:</label>
+          <select id="my-filter-status" class="rounded-xl border border-slate-300 py-1.5 px-3 text-xs bg-white focus:ring-2 focus:ring-blue-500">
+            <option value="ALL">All Statuses</option>
+            <option value="PENDING_REVIEW">Pending Review</option>
+            <option value="APPROVED">Approved / Active</option>
+            <option value="RESOLVED">Resolved</option>
+            <option value="REJECTED">Rejected</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Complaints List Container -->
+      <div id="my-complaints-list" class="space-y-3">
+        <div class="p-12 text-center text-slate-400 text-xs bg-white rounded-2xl border border-slate-200">
+          Loading your complaints...
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: APPROVALS MANAGEMENT CENTER (ADMIN)-->
+    <!-- ========================================== -->
+    <section id="view-approvals" class="hidden space-y-6">
+      
+      <!-- Approvals Center Header & Stats -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 rounded-2xl p-6 text-white shadow-md border border-slate-800">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                ADMINISTRATIVE VERIFICATION
+              </span>
+              <span class="text-xs text-slate-300 font-medium">&bull; Single Administrator Access</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-black text-white mt-1">Municipal Approvals & Verification Center</h2>
+            <p class="text-xs text-slate-200 mt-1 max-w-2xl leading-relaxed">
+              Verify incoming citizen complaints, dispatch targeted municipal departments, or reject invalid reports before workforce deployment.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 self-start md:self-auto">
+            <button id="btn-batch-approve" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs shadow-md shadow-emerald-600/20 transition flex items-center gap-1.5 opacity-50 pointer-events-none">
+              <span>✓</span> <span>Approve Selected (<span id="batch-selected-count">0</span>)</span>
+            </button>
+            <button id="btn-refresh-approvals" class="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold border border-white/20 transition flex items-center gap-1.5">
+              <span>🔄</span> <span>Refresh</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Approval Metric Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5 pt-4 border-t border-slate-800/80">
+          <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-semibold text-amber-200 uppercase tracking-wider">Pending Review</p>
+              <h3 id="kpi-approval-pending" class="text-2xl font-black text-amber-300 mt-0.5">0</h3>
+            </div>
+            <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-lg">⏳</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-semibold text-emerald-200 uppercase tracking-wider">Approved & Dispatched</p>
+              <h3 id="kpi-approval-approved" class="text-2xl font-black text-emerald-300 mt-0.5">0</h3>
+            </div>
+            <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-lg">✓</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-semibold text-rose-200 uppercase tracking-wider">Rejected / Declined</p>
+              <h3 id="kpi-approval-rejected" class="text-2xl font-black text-rose-300 mt-0.5">0</h3>
+            </div>
+            <div class="w-9 h-9 rounded-lg bg-rose-500/20 text-rose-300 flex items-center justify-center font-bold text-lg">✕</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approvals Filter Toolbar -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <!-- Status Tabs Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl text-xs font-bold">
+            <button class="approval-status-tab px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow-sm transition" data-status="PENDING_REVIEW">
+              Pending Review (<span id="tab-count-pending">0</span>)
+            </button>
+            <button class="approval-status-tab px-3 py-1.5 rounded-lg bg-white text-slate-600 hover:text-slate-900 transition" data-status="APPROVED">
+              Approved
+            </button>
+            <button class="approval-status-tab px-3 py-1.5 rounded-lg bg-white text-slate-600 hover:text-slate-900 transition" data-status="REJECTED">
+              Rejected
+            </button>
+            <button class="approval-status-tab px-3 py-1.5 rounded-lg bg-white text-slate-600 hover:text-slate-900 transition" data-status="ALL">
+              All Requests
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <label class="inline-flex items-center gap-1.5 text-xs text-slate-600 font-semibold cursor-pointer">
+              <input type="checkbox" id="approval-select-all" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500 h-4 w-4" />
+              <span>Select All Visible</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Secondary Filters (Search, Zone, Category) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Search Keywords</label>
+            <input type="text" id="approval-search-input" placeholder="Search ticket ID, citizen, street..." class="w-full rounded-xl border border-slate-300 p-2 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Zone / District</label>
+            <select id="approval-filter-zone" class="w-full rounded-xl border border-slate-300 p-2 text-xs bg-white focus:ring-2 focus:ring-blue-500">
+              <option value="ALL">All Zones</option>
+              <option value="Central Ward">Central Ward</option>
+              <option value="North District">North District</option>
+              <option value="East Sector">East Sector</option>
+              <option value="South District">South District</option>
+              <option value="West Sector">West Sector</option>
+            </select>
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Category</label>
+            <select id="approval-filter-category" class="w-full rounded-xl border border-slate-300 p-2 text-xs bg-white focus:ring-2 focus:ring-blue-500">
+              <option value="ALL">All Categories</option>
+              <option value="Streetlight">Streetlight</option>
+              <option value="Pothole">Pothole</option>
+              <option value="Water Supply">Water Supply</option>
+              <option value="Garbage & Sanitation">Garbage & Sanitation</option>
+              <option value="Traffic Signal">Traffic Signal</option>
+              <option value="Broken Sidewalk">Broken Sidewalk</option>
+              <option value="Trees & Parks">Trees & Parks</option>
+              <option value="Noise & Disturbance">Noise & Disturbance</option>
+              <option value="OTHER">Other / Custom Categories</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approvals Cards Grid Container -->
+      <div id="approval-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="p-12 text-center text-slate-400 text-xs bg-white rounded-2xl border border-slate-200 col-span-full">
+          Loading approvals queue...
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 4: MUNICIPAL OPERATIONS QUEUE (ADMIN) -->
+    <!-- ========================================== -->
+    <section id="view-admin" class="hidden space-y-6">
+      
+      <!-- Operational Controls Bar -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg font-black text-slate-900 tracking-tight">Municipal Operations Queue</h2>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 border border-purple-300">
+              OFFICIAL DISPATCH
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 mt-0.5">Triaging public service requests with mathematical rule-based dynamic prioritization.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <div class="bg-slate-100 p-1 rounded-xl flex items-center border border-slate-200 text-xs font-bold">
+            <button id="btn-view-kanban" class="px-3 py-1.5 rounded-lg bg-white shadow-sm text-blue-700 transition">Kanban</button>
+            <button id="btn-view-table" class="px-3 py-1.5 rounded-lg text-slate-600 transition">Table View</button>
+          </div>
+          <button id="btn-refresh-queues" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-1">
+            <span>🔄</span> <span>Refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Admin Filters Bar -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Search Keywords</label>
+          <input type="text" id="admin-search-input" placeholder="Search ticket ID, street..." class="w-full rounded-xl border border-slate-300 p-2 text-xs" />
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Lifecycle Status</label>
+          <select id="admin-filter-status" class="w-full rounded-xl border border-slate-300 p-2 text-xs bg-white">
+            <option value="ALL">All Statuses</option>
+            <option value="NEW">New</option>
+            <option value="ASSIGNED">Assigned</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="RESOLVED">Resolved</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Approval Status</label>
+          <select id="admin-filter-approval" class="w-full rounded-xl border border-slate-300 p-2 text-xs bg-white">
+            <option value="ALL">All Approvals</option>
+            <option value="PENDING_REVIEW">Pending Review</option>
+            <option value="APPROVED">Approved Only</option>
+            <option value="REJECTED">Rejected Only</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Zone / District</label>
+          <select id="admin-filter-borough" class="w-full rounded-xl border border-slate-300 p-2 text-xs bg-white">
+            <option value="ALL">All Zones</option>
+            <option value="Central Ward">Central Ward</option>
+            <option value="North District">North District</option>
+            <option value="East Sector">East Sector</option>
+            <option value="South District">South District</option>
+            <option value="West Sector">West Sector</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Category</label>
+          <select id="admin-filter-category" class="w-full rounded-xl border border-slate-300 p-2 text-xs bg-white">
+            <option value="ALL">All Categories</option>
+            <option value="Streetlight">Streetlight</option>
+            <option value="Pothole">Pothole</option>
+            <option value="Water Supply">Water Supply</option>
+            <option value="Garbage & Sanitation">Garbage</option>
+            <option value="Traffic Signal">Traffic Signal</option>
+            <option value="Broken Sidewalk">Sidewalk</option>
+            <option value="Trees & Parks">Trees & Parks</option>
+            <option value="Noise & Disturbance">Noise</option>
+            <option value="OTHER">Other / Custom Categories</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Priority Tier</label>
+          <select id="admin-filter-priority" class="w-full rounded-xl border border-slate-300 p-2 text-xs bg-white">
+            <option value="ALL">All Tiers</option>
+            <option value="CRITICAL">Critical (Score 75+)</option>
+            <option value="HIGH">High (Score 50-74)</option>
+            <option value="MEDIUM">Medium (Score 25-49)</option>
+            <option value="LOW">Low (Score 0-24)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Kanban View -->
+      <div id="kanban-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- New -->
+        <div class="bg-slate-100 rounded-2xl p-4 border border-slate-200">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
+            <h3 class="font-bold text-xs text-slate-800 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> NEW COMPLAINTS
+            </h3>
+            <span id="badge-count-new" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-white text-slate-700 border border-slate-200">0</span>
+          </div>
+          <div id="kanban-col-new" class="min-h-[400px]"></div>
+        </div>
+
+        <!-- Assigned -->
+        <div class="bg-slate-100 rounded-2xl p-4 border border-slate-200">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
+            <h3 class="font-bold text-xs text-slate-800 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> ASSIGNED / DISPATCHED
+            </h3>
+            <span id="badge-count-assigned" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-white text-slate-700 border border-slate-200">0</span>
+          </div>
+          <div id="kanban-col-assigned" class="min-h-[400px]"></div>
+        </div>
+
+        <!-- In Progress -->
+        <div class="bg-slate-100 rounded-2xl p-4 border border-slate-200">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
+            <h3 class="font-bold text-xs text-slate-800 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> IN PROGRESS
+            </h3>
+            <span id="badge-count-inprogress" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-white text-slate-700 border border-slate-200">0</span>
+          </div>
+          <div id="kanban-col-inprogress" class="min-h-[400px]"></div>
+        </div>
+
+        <!-- Resolved -->
+        <div class="bg-slate-100 rounded-2xl p-4 border border-slate-200">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
+            <h3 class="font-bold text-xs text-slate-800 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> RESOLVED
+            </h3>
+            <span id="badge-count-resolved" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-white text-slate-700 border border-slate-200">0</span>
+          </div>
+          <div id="kanban-col-resolved" class="min-h-[400px]"></div>
+        </div>
+      </div>
+
+      <!-- Table View -->
+      <div id="table-container" class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              <tr>
+                <th class="py-3 px-3">Ticket ID</th>
+                <th class="py-3 px-3">Issue Summary</th>
+                <th class="py-3 px-3">Category</th>
+                <th class="py-3 px-3">Zone</th>
+                <th class="py-3 px-3">Approval</th>
+                <th class="py-3 px-3">Priority Score</th>
+                <th class="py-3 px-3">Status</th>
+                <th class="py-3 px-3">Age / SLA</th>
+                <th class="py-3 px-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-table-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 4: EXECUTIVE ANALYTICS & SLA (ADMIN)  -->
+    <!-- ========================================== -->
+    <section id="view-analytics" class="hidden space-y-6">
+      
+      <!-- Machine Learning Status Card -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 text-white shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-2xl shadow-inner">
+            🧠
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm font-bold text-white">Client-Trained Machine Learning Model</h3>
+              <span id="ml-status-pill" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                ACTIVE &bull; 91.7% ACCURACY
+              </span>
+            </div>
+            <p class="text-xs text-slate-300 mt-0.5">
+              Powered by Soft-Voting Multi-Model Ensemble. Supports real-time retraining across algorithms and streaming 1.5 GB+ datasets.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <select id="select-ml-algo" class="px-3 py-2 bg-slate-800 border border-slate-600 text-white font-semibold rounded-xl text-xs focus:ring-2 focus:ring-indigo-400">
+            <option value="ensemble" selected>⭐ Soft Voting Ensemble (91.7% Acc)</option>
+            <option value="hybrid_linear_svc">⚡ Hybrid LinearSVC (91.7% Acc)</option>
+            <option value="logistic_regression">📈 Logistic Regression (90.3% Acc)</option>
+            <option value="complement_nb">🚀 Complement Naive Bayes (90.6% Acc)</option>
+          </select>
+          <button id="btn-retrain-ml" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs shadow-md shadow-indigo-500/30 transition flex items-center gap-1.5"
+            onclick="window.handleRetrainModel()">
+            <span>⚡ Retrain Model</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Metric Cards Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-semibold text-slate-500">Total Tickets</p>
+          <h3 id="kpi-total" class="text-2xl font-black text-slate-900 mt-1">0</h3>
+          <span class="text-[10px] text-slate-400">Civic Service Requests</span>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-semibold text-slate-500">Unresolved Backlog</p>
+          <h3 id="kpi-unresolved" class="text-2xl font-black text-amber-600 mt-1">0</h3>
+          <span class="text-[10px] text-amber-500 font-medium">In Queue / Field</span>
+        </div>
+        <div id="kpi-breached-card" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm transition">
+          <p class="text-[11px] font-semibold text-slate-500">SLA Breached</p>
+          <h3 id="kpi-sla-breached" class="text-2xl font-black text-red-600 mt-1">0</h3>
+          <span class="text-[10px] text-red-500 font-medium">Action Required</span>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-semibold text-slate-500">Aging (>48h)</p>
+          <h3 id="kpi-aging" class="text-2xl font-black text-orange-600 mt-1">0</h3>
+          <span class="text-[10px] text-orange-500">Open Tickets</span>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-semibold text-slate-500">SLA Compliance</p>
+          <h3 id="kpi-sla-compliance" class="text-2xl font-black text-emerald-600 mt-1">100%</h3>
+          <span class="text-[10px] text-emerald-500 font-medium">Target &gt; 90%</span>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-semibold text-slate-500">Avg Resolution</p>
+          <h3 id="kpi-mttr" class="text-2xl font-black text-blue-600 mt-1">--</h3>
+          <span class="text-[10px] text-blue-500 font-medium">Hours to Close</span>
+        </div>
+      </div>
+
+      <!-- High-Priority Locations & Incident Hotspots Table -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span>📍 High-Priority Locations & Incident Hotspots</span>
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">Identified incident density clusters based on multi-report recurrence and severity weighting.</p>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 border border-purple-300">
+            DYNAMIC RISK SCORING
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              <tr>
+                <th class="py-3 px-3">Location & District</th>
+                <th class="py-3 px-3">Report Volume</th>
+                <th class="py-3 px-3">Highest Priority</th>
+                <th class="py-3 px-3">Primary Issues</th>
+                <th class="py-3 px-3 text-right">Status</th>
+              </tr>
+            </thead>
+            <tbody id="analytics-hotspots-tbody">
+              <tr>
+                <td colspan="5" class="py-6 text-center text-xs text-slate-400">Loading high-priority locations...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Analytics Charts Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-slate-800">Issue Distribution by Category</h3>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="chart-categories"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-slate-800">Aging Distribution Pyramid</h3>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="chart-aging"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-slate-800">Department Performance & SLA Compliance</h3>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="chart-departments"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-slate-800">Lifecycle Status Breakdown</h3>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="chart-status"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL: AUTHENTICATION (SIGN IN & REGISTER) -->
+  <!-- ========================================== -->
+  <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in duration-150">
+      <button onclick="window.Auth.closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      
+      <!-- Brand in Modal -->
+      <div class="flex items-center gap-2.5 mb-5 pb-3 border-b border-slate-100">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-black">
+          🏛️
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-slate-900 leading-tight">Civic Portal Access</h3>
+          <p class="text-[11px] text-slate-500">Citizen registration & municipal authentication</p>
+        </div>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="flex border-b border-slate-200 mb-5">
+        <button id="auth-tab-login" onclick="window.Auth.showAuthTab('login')" class="flex-1 py-2.5 text-xs font-bold border-b-2 border-blue-600 text-blue-700 transition">
+          Sign In
+        </button>
+        <button id="auth-tab-register" onclick="window.Auth.showAuthTab('register')" class="flex-1 py-2.5 text-xs font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition">
+          First-Time Citizen Register
+        </button>
+      </div>
+
+      <!-- LOGIN FORM (For Returning Citizens & Single Admin) -->
+      <form id="form-auth-login" onsubmit="window.Auth.handleLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+          <input type="email" id="login-email" required placeholder="your.email@domain.com" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
+          <input type="password" id="login-password" required placeholder="Enter password" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+        <div id="login-error-msg" class="hidden text-xs text-red-600 font-medium bg-red-50 p-2 rounded-lg border border-red-200"></div>
+        <button type="submit" id="btn-login-submit" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition shadow-md">
+          Sign In to Portal
+        </button>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-500 space-y-1">
+          <p><strong>Admin Sign-In:</strong> Official administrator signs in here (<code class="bg-white px-1 py-0.5 rounded border text-slate-800">admin@civicportal.gov</code> / <code class="bg-white px-1 py-0.5 rounded border text-slate-800">admin123</code>).</p>
+        </div>
+      </form>
+
+      <!-- REGISTRATION FORM (For First-Time Citizens) -->
+      <form id="form-auth-register" onsubmit="window.Auth.handleRegisterSubmit(event)" class="space-y-3.5 hidden">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
+          <input type="text" id="register-name" required placeholder="e.g. Alex Morgan" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+          <input type="email" id="register-email" required placeholder="alex.morgan@domain.com" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Contact Phone (Optional)</label>
+          <input type="tel" id="register-phone" placeholder="e.g. (555) 019-2834" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Create Password</label>
+          <input type="password" id="register-password" required minlength="6" placeholder="At least 6 characters" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+        <div id="register-error-msg" class="hidden text-xs text-red-600 font-medium bg-red-50 p-2 rounded-lg border border-red-200"></div>
+        <button type="submit" id="btn-register-submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow-md">
+          Complete Registration & Sign In
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modals & Drawers -->
+  <!-- SUBMISSION CONFIRMATION MODAL -->
+  <div id="submission-success-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto">
+        ✓
+      </div>
+      <div class="text-center">
+        <h3 class="text-lg font-bold text-slate-900">Service Request Registered</h3>
+        <p class="text-xs text-slate-500 mt-1">Your complaint has been submitted to municipal authorities.</p>
+      </div>
+
+      <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-xs">
+        <div class="flex justify-between">
+          <span class="text-slate-500 font-medium">Ticket Reference ID:</span>
+          <strong id="modal-ticket-id" class="text-blue-700 font-mono font-bold">--</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500 font-medium">Issue Summary:</span>
+          <span id="modal-ticket-title" class="font-bold text-slate-800 text-right max-w-[200px] truncate">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500 font-medium">Category:</span>
+          <span id="modal-ticket-cat" class="font-bold text-slate-800">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500 font-medium">Location:</span>
+          <span id="modal-ticket-addr" class="font-medium text-slate-700 text-right max-w-[200px] truncate">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500 font-medium">Target SLA Due:</span>
+          <span id="modal-ticket-sla" class="font-semibold text-slate-800">--</span>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition"
+          onclick="document.getElementById('submission-success-modal').classList.add('hidden'); window.CitizenPortal.loadMyComplaints(); document.getElementById('tab-my-complaints-btn').click();">
+          View in My Complaints
+        </button>
+        <button class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition"
+          onclick="document.getElementById('submission-success-modal').classList.add('hidden')">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPROVAL DECISION MODAL -->
+  <div id="approval-decision-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">
+            🛡️
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-900">Municipal Verification & Approval</h3>
+            <p class="text-xs text-slate-500">Service Request ID: <strong id="modal-decision-ticket-id" class="text-blue-700 font-mono">--</strong></p>
+          </div>
+        </div>
+        <button onclick="window.ApprovalsManager.closeDecisionModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <!-- Ticket Summary Box -->
+      <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5 text-xs">
+        <div>
+          <span class="text-slate-500 font-medium">Issue:</span>
+          <strong id="modal-decision-title" class="text-slate-900 ml-1">--</strong>
+        </div>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 text-slate-600">
+          <span>Category: <strong id="modal-decision-cat" class="text-slate-800">--</strong></span>
+          <span>Location: <strong id="modal-decision-loc" class="text-slate-800">--</strong></span>
+        </div>
+        <div class="text-slate-500">
+          <span>Reporter: <strong id="modal-decision-reporter" class="text-slate-700">--</strong></span>
+        </div>
+      </div>
+
+      <form id="approval-decision-form" class="space-y-4 text-xs">
+        <!-- Decision Choice: Approve vs Reject -->
+        <div>
+          <label class="font-bold text-slate-700 block mb-1.5">Action Decision</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="p-3 rounded-xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 cursor-pointer flex items-center gap-2 transition">
+              <input type="radio" id="radio-action-approve" name="decision_action" value="APPROVED" checked class="text-emerald-600 focus:ring-emerald-500" />
+              <div>
+                <strong class="text-emerald-900 block font-bold">Approve & Dispatch</strong>
+                <span class="text-[10px] text-emerald-700">Validate request & deploy field crew</span>
+              </div>
+            </label>
+            <label class="p-3 rounded-xl border border-rose-200 bg-rose-50/50 hover:bg-rose-50 cursor-pointer flex items-center gap-2 transition">
+              <input type="radio" id="radio-action-reject" name="decision_action" value="REJECTED" class="text-rose-600 focus:ring-rose-500" />
+              <div>
+                <strong class="text-rose-900 block font-bold">Reject / Close</strong>
+                <span class="text-[10px] text-rose-700">Decline invalid or duplicate report</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Target Department Assignment (for Approve) -->
+        <div id="approval-dept-container">
+          <label class="font-bold text-slate-700 block mb-1">Assigned Department</label>
+          <select id="approval-decision-dept" class="w-full rounded-xl border border-slate-300 p-2.5 bg-white text-xs">
+            <option value="Roadway & Infrastructure Maintenance">Roadway & Infrastructure Maintenance</option>
+            <option value="Electrical & Street Lighting Board">Electrical & Street Lighting Board</option>
+            <option value="Traffic & Signals Division">Traffic & Signals Division</option>
+            <option value="Water Resources & Drainage Authority">Water Resources & Drainage Authority</option>
+            <option value="Waste Management & Sanitation Board">Waste Management & Sanitation Board</option>
+            <option value="Pedestrian & Sidewalks Division">Pedestrian & Sidewalks Division</option>
+            <option value="Urban Parks & Greenery Board">Urban Parks & Greenery Board</option>
+            <option value="Civic Health & Noise Control">Civic Health & Noise Control</option>
+            <option value="Municipal Operations Directorate">Municipal Operations Directorate</option>
+          </select>
+        </div>
+
+        <!-- Preset Remarks Pills -->
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Quick-Insert Remarks</label>
+          <div id="preset-pills-approve" class="flex flex-wrap gap-1.5">
+            <button type="button" class="preset-remark-pill px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 hover:text-blue-800 text-[11px] text-slate-700 transition" data-remark="Civic complaint verified on-site. Dispatched to field crew for rectification.">
+              + Verified & Dispatched
+            </button>
+            <button type="button" class="preset-remark-pill px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 hover:text-blue-800 text-[11px] text-slate-700 transition" data-remark="High urgency hazard verified. Emergency squad notified.">
+              + Emergency Priority
+            </button>
+            <button type="button" class="preset-remark-pill px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 hover:text-blue-800 text-[11px] text-slate-700 transition" data-remark="Scheduled for routine ward maintenance cycle.">
+              + Routine Maintenance
+            </button>
+          </div>
+          <div id="preset-pills-reject" class="flex flex-wrap gap-1.5 hidden">
+            <button type="button" class="preset-remark-pill px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-rose-100 hover:text-rose-800 text-[11px] text-slate-700 transition" data-remark="Duplicate report of active maintenance ticket in this sector.">
+              + Duplicate Report
+            </button>
+            <button type="button" class="preset-remark-pill px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-rose-100 hover:text-rose-800 text-[11px] text-slate-700 transition" data-remark="Location falls outside municipal operations jurisdiction.">
+              + Outside Jurisdiction
+            </button>
+            <button type="button" class="preset-remark-pill px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-rose-100 hover:text-rose-800 text-[11px] text-slate-700 transition" data-remark="Insufficient address details provided; issue unlocatable.">
+              + Insufficient Location Info
+            </button>
+          </div>
+        </div>
+
+        <!-- Official Remarks Textarea -->
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Official Notes & Audit Remarks</label>
+          <textarea id="approval-decision-notes" rows="2" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Enter remarks..."></textarea>
+        </div>
+
+        <!-- Modal Footer Actions -->
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" onclick="window.ApprovalsManager.closeDecisionModal()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 font-bold text-xs transition">
+            Cancel
+          </button>
+          <button type="submit" id="btn-confirm-approval-decision" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-1">
+            <span>✓</span> <span>Approve & Dispatch</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PRIORITIZATION INSPECTOR MODAL -->
+  <div id="priority-breakdown-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">Rule-Based Prioritization Engine</h3>
+          <p class="text-xs text-slate-500">Mathematical breakdown of dynamic score components</p>
+        </div>
+        <button onclick="document.getElementById('priority-breakdown-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+      
+      <div id="priority-breakdown-content" class="space-y-3 text-xs"></div>
+
+      <button class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition"
+        onclick="document.getElementById('priority-breakdown-modal').classList.add('hidden')">
+        Close Inspector
+      </button>
+    </div>
+  </div>
+
+  <!-- ADMIN ASSIGN MODAL -->
+  <div id="admin-assign-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">Dispatch Department & Field Officer</h3>
+          <p class="text-[11px] text-slate-500">Ticket ID: <span id="assign-ticket-id-label" class="font-mono font-bold text-blue-700">--</span></p>
+        </div>
+        <button onclick="document.getElementById('admin-assign-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Municipal Department</label>
+          <select id="modal-assign-dept" class="w-full rounded-xl border border-slate-300 p-2.5 bg-white">
+            <option value="Roadway & Infrastructure Maintenance">Roadway & Infrastructure Maintenance</option>
+            <option value="Electrical & Street Lighting Board">Electrical & Street Lighting Board</option>
+            <option value="Traffic & Signals Division">Traffic & Signals Division</option>
+            <option value="Water Resources & Drainage Authority">Water Resources & Drainage Authority</option>
+            <option value="Waste Management & Sanitation Board">Waste Management & Sanitation Board</option>
+            <option value="Pedestrian & Sidewalks Division">Pedestrian & Sidewalks Division</option>
+            <option value="Urban Parks & Greenery Board">Urban Parks & Greenery Board</option>
+            <option value="Civic Health & Noise Control">Civic Health & Noise Control</option>
+            <option value="Municipal Community Affairs">Municipal Community Affairs</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Assigned Field Crew / Officer</label>
+          <input type="text" id="modal-assign-officer" placeholder="e.g. Field Crew Unit 4" class="w-full rounded-xl border border-slate-300 p-2.5" />
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Dispatch Instructions / Remarks</label>
+          <textarea id="modal-assign-notes" rows="2" placeholder="Specific dispatch notes for field unit..." class="w-full rounded-xl border border-slate-300 p-2.5"></textarea>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button id="btn-save-assign" onclick="window.AdminPortal.executeAssignment()" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition">
+          Confirm Dispatch
+        </button>
+        <button onclick="document.getElementById('admin-assign-modal').classList.add('hidden')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN STATUS MODAL -->
+  <div id="admin-status-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">Update Complaint Lifecycle Status</h3>
+          <p class="text-[11px] text-slate-500">Ticket ID: <span id="status-ticket-id-label" class="font-mono font-bold text-blue-700">--</span></p>
+        </div>
+        <button onclick="document.getElementById('admin-status-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Target Status</label>
+          <select id="modal-status-select" class="w-full rounded-xl border border-slate-300 p-2.5 bg-white">
+            <option value="NEW">NEW</option>
+            <option value="ASSIGNED">ASSIGNED</option>
+            <option value="IN_PROGRESS">IN_PROGRESS</option>
+            <option value="RESOLVED">RESOLVED</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Status Transition Notes</label>
+          <textarea id="modal-status-notes" rows="2" placeholder="e.g. Field inspection completed, work verified..." class="w-full rounded-xl border border-slate-300 p-2.5"></textarea>
+        </div>
+
+        <div id="status-resolution-box">
+          <label class="font-bold text-slate-700 block mb-1">Resolution Summary (Optional)</label>
+          <textarea id="modal-resolution-notes" rows="2" placeholder="Summary of work completed by municipal crews..." class="w-full rounded-xl border border-slate-300 p-2.5"></textarea>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button id="btn-save-status" onclick="window.AdminPortal.executeStatusUpdate()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition">
+          Update Status
+        </button>
+        <button onclick="document.getElementById('admin-status-modal').classList.add('hidden')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKET DETAILS & TRACKING MODAL (FOR CITIZENS & ADMINS) -->
+  <div id="tracking-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-base">
+            🔍
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-900">Service Request Details & Audit Log</h3>
+            <p class="text-xs text-slate-500">Ticket ID: <strong id="track-detail-id" class="text-blue-700 font-mono">--</strong></p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('tracking-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <!-- Ticket Information Summary -->
+      <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-2">
+        <div>
+          <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Issue Title</span>
+          <h4 id="track-detail-title" class="font-bold text-slate-900 text-sm mt-0.5">--</h4>
+        </div>
+        <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-200">
+          <div>
+            <span class="text-slate-400 text-[10px] block font-semibold">Category</span>
+            <span id="track-detail-cat" class="font-semibold text-slate-800">--</span>
+          </div>
+          <div>
+            <span class="text-slate-400 text-[10px] block font-semibold">Location / Zone</span>
+            <span id="track-detail-addr" class="font-semibold text-slate-800">--</span>
+          </div>
+          <div>
+            <span class="text-slate-400 text-[10px] block font-semibold">Date Registered</span>
+            <span id="track-detail-created" class="font-medium text-slate-700">--</span>
+          </div>
+          <div>
+            <span class="text-slate-400 text-[10px] block font-semibold">SLA Target Due</span>
+            <span id="track-detail-sla" class="font-medium text-slate-700">--</span>
+          </div>
+        </div>
+        <div class="pt-1 border-t border-slate-200">
+          <span class="text-slate-400 text-[10px] block font-semibold">Assigned Municipal Authority</span>
+          <span id="track-detail-dept" class="font-bold text-blue-700">--</span>
+        </div>
+      </div>
+
+      <!-- Live Approval Banner -->
+      <div id="track-approval-banner" class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900">
+        <strong>Status:</strong> Under Municipal Review
+      </div>
+
+      <!-- Lifecycle Stepper -->
+      <div>
+        <h5 class="text-xs font-bold text-slate-700 mb-2">Operations Lifecycle Progression</h5>
+        <div class="grid grid-cols-4 gap-2 text-center text-[10px] font-bold">
+          <div class="flex flex-col items-center gap-1">
+            <div id="step-circle-new" class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs">1</div>
+            <span class="text-slate-600">NEW</span>
+          </div>
+          <div class="flex flex-col items-center gap-1">
+            <div id="step-circle-assigned" class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs">2</div>
+            <span class="text-slate-600">ASSIGNED</span>
+          </div>
+          <div class="flex flex-col items-center gap-1">
+            <div id="step-circle-in_progress" class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs">3</div>
+            <span class="text-slate-600">IN PROGRESS</span>
+          </div>
+          <div class="flex flex-col items-center gap-1">
+            <div id="step-circle-resolved" class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs">4</div>
+            <span class="text-slate-600">RESOLVED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline Events -->
+      <div class="space-y-1.5">
+        <h5 class="text-xs font-bold text-slate-700">Audit History & Timeline</h5>
+        <div id="tracking-timeline-list" class="max-h-36 overflow-y-auto space-y-1.5 pr-1 text-xs"></div>
+      </div>
+
+      <button onclick="document.getElementById('tracking-modal').classList.add('hidden')" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition">
+        Close Details
+      </button>
+    </div>
+  </div>
+
+  <!-- RETRAIN RESULTS MODAL -->
+  <div id="retrain-results-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <span>🧠 Machine Learning Model Retrained</span>
+        </h3>
+        <button onclick="document.getElementById('retrain-results-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 text-xs">
+        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+          <p class="text-[11px] text-emerald-700 font-semibold">Test Accuracy</p>
+          <h4 id="rt-accuracy" class="text-2xl font-black text-emerald-900 mt-0.5">--</h4>
+        </div>
+        <div class="p-3 bg-blue-50 rounded-xl border border-blue-100">
+          <p class="text-[11px] text-blue-700 font-semibold">Weighted F1-Score</p>
+          <h4 id="rt-f1" class="text-2xl font-black text-blue-900 mt-0.5">--</h4>
+        </div>
+      </div>
+
+      <div class="text-xs space-y-1.5 p-3 bg-slate-50 rounded-xl border border-slate-200">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Training Samples:</span>
+          <span id="rt-train-samples" class="font-bold text-slate-800">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Evaluation Samples:</span>
+          <span id="rt-test-samples" class="font-bold text-slate-800">--</span>
+        </div>
+      </div>
+
+      <button class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition"
+        onclick="document.getElementById('retrain-results-modal').classList.add('hidden')">
+        Close Report
+      </button>
+    </div>
+  </div>
+
+  <!-- In-App Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-sm w-full"></div>
+
+  <!-- Global Application Scripts (No Maps) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script type="module">
+    import { Api } from "/static/js/api.js";
+    import { Auth } from "/static/js/auth.js";
+    import { Toast } from "/static/js/toast.js";
+    import { CitizenPortal } from "/static/js/citizen.js";
+    import { AdminPortal } from "/static/js/admin.js";
+    import { ApprovalsManager } from "/static/js/approvals.js";
+    import { AnalyticsPortal } from "/static/js/analytics.js";
+
+    window.Api = Api;
+    window.Auth = Auth;
+    window.Toast = Toast;
+    window.CitizenPortal = CitizenPortal;
+    window.AdminPortal = AdminPortal;
+    window.ApprovalsManager = ApprovalsManager;
+    window.AnalyticsPortal = AnalyticsPortal;
+
+    window.inspectPriority = (id) => AdminPortal.inspectPriority(id);
+    window.openAssignModal = (id) => AdminPortal.openAssignModal(id);
+    window.openStatusModal = (id, currentStatus) => AdminPortal.openStatusModal(id, currentStatus);
+    window.viewTicketDetail = (id) => CitizenPortal.trackComplaint(id);
+
+    window.handleRetrainModel = async () => {
+      const btn = document.getElementById("btn-retrain-ml");
+      const algoSelect = document.getElementById("select-ml-algo");
+      const chosenAlgo = algoSelect ? algoSelect.value : "ensemble";
+      const origText = btn ? btn.innerHTML : "";
+      try {
+        if (btn) btn.innerHTML = `<span>⏳ Retraining Model...</span>`;
+        const res = await Api.trainModel(null, 0.2, chosenAlgo);
+        const m = res.metrics;
+
+        document.getElementById("rt-accuracy").textContent = `${m.accuracy}%`;
+        document.getElementById("rt-f1").textContent = `${m.f1_weighted}%`;
+        document.getElementById("rt-train-samples").textContent = m.train_samples;
+        document.getElementById("rt-test-samples").textContent = m.test_samples;
+
+        const pill = document.getElementById("ml-status-pill");
+        if (pill) pill.textContent = `ACTIVE • ${m.accuracy}% ACCURACY`;
+
+        document.getElementById("retrain-results-modal").classList.remove("hidden");
+        Toast.success(`Model retrained successfully with ${m.accuracy}% accuracy.`);
+      } catch (err) {
+        Toast.error("Retraining failed: " + err.message);
+      } finally {
+        if (btn) btn.innerHTML = origText;
+      }
+    };
+
+    window.upvoteComplaint = async (id) => {
+      try {
+        const res = await Api.upvoteComplaint(id);
+        Toast.success(`Issue ${id} verified (+1 duplicate report). New score: ${res.new_priority_score}`);
+        CitizenPortal.loadNearbyIssues();
+        if (window.Auth && window.Auth.isAdmin()) AdminPortal.loadQueues();
+      } catch (err) {
+        Toast.error("Failed to upvote: " + err.message);
+      }
+    };
+
+    // Tab Navigation Logic with Strict Single-Admin Gate
+    function switchTab(targetId) {
+      // Check admin security gate
+      if (targetId === "view-admin" || targetId === "view-analytics" || targetId === "view-approvals") {
+        if (!window.Auth || !window.Auth.isAdmin()) {
+          Toast.warning("Access Restricted: Designated Municipal Administrator credentials required.");
+          window.Auth.openAuthModal("login");
+          return;
+        }
+      }
+
+      document.querySelectorAll("section[id^='view-']").forEach((sec) => sec.classList.add("hidden"));
+      document.querySelectorAll(".nav-tab").forEach((btn) => {
+        btn.classList.remove("bg-white", "shadow-sm", "text-blue-700");
+        btn.classList.add("text-slate-600");
+      });
+
+      const activeSec = document.getElementById(targetId);
+      if (activeSec) activeSec.classList.remove("hidden");
+
+      const activeBtns = document.querySelectorAll(`.nav-tab[data-target='${targetId}']`);
+      activeBtns.forEach((btn) => {
+        btn.classList.add("bg-white", "shadow-sm", "text-blue-700");
+        btn.classList.remove("text-slate-600");
+      });
+
+      if (targetId === "view-my-complaints") {
+        CitizenPortal.loadMyComplaints();
+      } else if (targetId === "view-approvals") {
+        ApprovalsManager.loadApprovals();
+      } else if (targetId === "view-admin") {
+        AdminPortal.loadQueues();
+      } else if (targetId === "view-analytics") {
+        AnalyticsPortal.refreshAnalytics();
+      }
+    }
+
+    document.querySelectorAll(".nav-tab").forEach((btn) => {
+      btn.addEventListener("click", () => switchTab(btn.dataset.target));
+    });
+
+    // Initialize all portals on DOMContentLoaded
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.Auth) window.Auth.init();
+      CitizenPortal.init();
+      AdminPortal.init();
+      ApprovalsManager.init();
+      AnalyticsPortal.init();
+    });
+  </script>
+</body>
+</html>
