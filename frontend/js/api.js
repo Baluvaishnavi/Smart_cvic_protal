@@ -156,8 +156,18 @@ export const Api = {
       body: JSON.stringify(payload),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Failed to submit complaint");
+      let msg = "";
+      try {
+        const err = await res.json();
+        if (Array.isArray(err.detail)) {
+          msg = err.detail.map(d => `${d.loc ? d.loc.slice(1).join('.') : ''}: ${d.msg}`).join(', ');
+        } else {
+          msg = err.detail || err.message || "";
+        }
+      } catch (e) {
+        msg = await res.text().catch(() => "");
+      }
+      throw new Error(msg || "Failed to submit complaint");
     }
     return res.json();
   },

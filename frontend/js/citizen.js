@@ -208,7 +208,9 @@ export const CitizenPortal = {
     const btn = document.querySelector("#complaint-form button[type='submit']");
     const origText = btn ? btn.innerHTML : "";
 
-    const user = window.Auth ? window.Auth.getCurrentUser() : { email: "citizen@civicportal.gov", name: "Civic Resident" };
+    const activeUser = (window.Auth && typeof window.Auth.getCurrentUser === "function")
+      ? window.Auth.getCurrentUser()
+      : null;
 
     const customCatVal = document.getElementById("input-custom-category")?.value.trim();
     const selCatVal = document.getElementById("select-category")?.value;
@@ -220,17 +222,36 @@ export const CitizenPortal = {
       finalCategory = selCatVal;
     }
 
+    const titleVal = document.getElementById("input-title")?.value.trim() || "";
+    const rawDescVal = document.getElementById("input-raw-desc")?.value.trim() || "";
+    const descVal = rawDescVal || titleVal || "Civic complaint report";
+    const addressVal = document.getElementById("input-address")?.value.trim() || "Unspecified Municipal Location";
+    const boroughVal = document.getElementById("select-borough")?.value || "Central Ward";
+    const priorityVal = document.getElementById("select-urgency")?.value || "MEDIUM";
+
+    const inputEmail = document.getElementById("input-citizen-email")?.value.trim();
+    const inputName = document.getElementById("input-citizen-name")?.value.trim();
+    const inputPhone = document.getElementById("input-citizen-phone")?.value.trim();
+
+    const citizenEmail = inputEmail || (activeUser && activeUser.email) || "citizen@civicportal.gov";
+    const citizenName = inputName || (activeUser && activeUser.name) || "Civic Resident";
+
+    if (!titleVal && !rawDescVal) {
+      Toast.error("Please enter a title or problem description.");
+      return;
+    }
+
     const payload = {
-      title: document.getElementById("input-title")?.value.trim() || "",
-      description: document.getElementById("input-raw-desc")?.value.trim() || document.getElementById("input-title")?.value.trim() || "",
-      raw_input: document.getElementById("input-raw-desc")?.value.trim() || "",
+      title: titleVal || descVal,
+      description: descVal,
+      raw_input: rawDescVal || descVal,
       category: finalCategory,
-      location_address: document.getElementById("input-address")?.value.trim() || "Unspecified Location",
-      borough: document.getElementById("select-borough")?.value || "Central Ward",
-      priority: document.getElementById("select-urgency")?.value || "MEDIUM",
-      citizen_email: user.email || "citizen@civicportal.gov",
-      citizen_name: user.name || "Civic Resident",
-      citizen_phone: document.getElementById("input-citizen-phone")?.value.trim() || null,
+      location_address: addressVal,
+      borough: boroughVal,
+      priority: priorityVal,
+      citizen_email: citizenEmail,
+      citizen_name: citizenName,
+      citizen_phone: inputPhone || (activeUser && activeUser.phone) || null,
       approval_status: "PENDING_REVIEW"
     };
 
@@ -243,7 +264,7 @@ export const CitizenPortal = {
       Toast.success(`Service request registered: ${res.id}`);
 
       // Reset form
-      document.getElementById("complaint-form").reset();
+      document.getElementById("complaint-form")?.reset();
       const rawDesc = document.getElementById("input-raw-desc");
       if (rawDesc) rawDesc.value = "";
       const banner = document.getElementById("ai-result-banner");
@@ -261,9 +282,19 @@ export const CitizenPortal = {
         }
       });
 
-      // Refresh My Complaints
+      // Re-populate citizen user info if logged in
+      if (activeUser) {
+        const nameField = document.getElementById("input-citizen-name");
+        const emailField = document.getElementById("input-citizen-email");
+        if (nameField && activeUser.name) nameField.value = activeUser.name;
+        if (emailField && activeUser.email) emailField.value = activeUser.email;
+      }
+
+      // Refresh My Complaints & Nearby issues
       this.loadMyComplaints();
+      this.loadNearbyIssues();
     } catch (err) {
+      console.error("[Citizen] Submission error:", err);
       Toast.error("Submission error: " + err.message);
     } finally {
       if (btn) btn.innerHTML = origText;

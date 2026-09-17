@@ -296,8 +296,23 @@ async def create_complaint(data: ComplaintCreate, db: Database = Depends(get_db)
         lat = zone_info["lat"] + random.uniform(-0.015, 0.015)
         lng = zone_info["lng"] + random.uniform(-0.015, 0.015)
 
-    count = db["complaints"].count_documents({}) + 1001
-    complaint_id = f"CIVIC-2026-{count}"
+    # Generate guaranteed unique, non-colliding complaint ID
+    try:
+        max_id_num = 1050
+        for c in db["complaints"].find({"id": {"$regex": r"^CIVIC-2026-\d+$"}}, {"id": 1}).sort("id", -1).limit(10):
+            try:
+                num = int(c["id"].split("-")[-1])
+                if num > max_id_num:
+                    max_id_num = num
+            except Exception:
+                pass
+        candidate = max_id_num + 1
+        while db["complaints"].find_one({"id": f"CIVIC-2026-{candidate}"}):
+            candidate += 1
+        complaint_id = f"CIVIC-2026-{candidate}"
+    except Exception:
+        import time
+        complaint_id = f"CIVIC-2026-{int(time.time()) % 90000 + 10000}"
 
     doc = ComplaintModel.create(
         id=complaint_id,
@@ -326,17 +341,32 @@ async def create_complaint(data: ComplaintCreate, db: Database = Depends(get_db)
 
     # Compute rule-based priority score
     update_complaint_priority(doc, current_time=now)
-    db["complaints"].insert_one(doc)
+    try:
+        db["complaints"].insert_one(doc)
+    except pymongo.errors.DuplicateKeyError:
+        import time
+        complaint_id = f"CIVIC-2026-{int(time.time()) % 90000 + 10000}"
+        doc["id"] = complaint_id
+        db["complaints"].insert_one(doc)
+    except pymongo.errors.PyMongoError as e:
+        print(f"[Complaint Submit Error] MongoDB write failed: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Database temporarily unavailable while saving complaint: {e}"
+        )
 
     # Timeline entry
-    db["complaint_timeline"].insert_one({
-        "complaint_id": complaint_id,
-        "from_status": None,
-        "to_status": "NEW",
-        "actor": "Citizen Reporter",
-        "notes": f"Issue submitted for {category}. SLA target: {sla_hours}h.",
-        "created_at": now,
-    })
+    try:
+        db["complaint_timeline"].insert_one({
+            "complaint_id": complaint_id,
+            "from_status": None,
+            "to_status": "NEW",
+            "actor": "Citizen Reporter",
+            "notes": f"Issue submitted for {category}. SLA target: {sla_hours}h.",
+            "created_at": now,
+        })
+    except Exception as t_err:
+        print(f"[Timeline Error] Notice: {t_err}")
 
     return enrich_complaint_summary(doc, now)
 
