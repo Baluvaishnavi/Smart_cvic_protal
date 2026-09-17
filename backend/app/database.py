@@ -22,9 +22,11 @@ MONGODB_URL = (
 DB_NAME = os.environ.get("MONGODB_DB_NAME", "smart_civic_311")
 
 # Configure client connection options (SSL/TLS, timeouts)
+is_cloud = not ("localhost" in MONGODB_URL or "127.0.0.1" in MONGODB_URL)
 client_kwargs = {
-    "serverSelectionTimeoutMS": 4000,
-    "connectTimeoutMS": 4000,
+    "serverSelectionTimeoutMS": 4000 if is_cloud else 1500,
+    "connectTimeoutMS": 4000 if is_cloud else 1500,
+    "socketTimeoutMS": 4000 if is_cloud else 1500,
 }
 
 # Attach certifi CA certificates ONLY for cloud SSL/TLS connections (e.g. MongoDB Atlas)

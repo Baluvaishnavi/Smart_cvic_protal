@@ -12,6 +12,7 @@ from app.database import get_db
 from app.models import utcnow
 from app.config import CATEGORIES_CONFIG, NYC_BOROUGHS
 from app.seed_data import seed_nyc_311_data
+from app.routes.complaints import IN_MEMORY_COMPLAINTS
 
 router = APIRouter(prefix="/api/analytics", tags=["Analytics"])
 
@@ -19,11 +20,22 @@ router = APIRouter(prefix="/api/analytics", tags=["Analytics"])
 @router.get("/dashboard")
 def get_dashboard_metrics(db: Database = Depends(get_db)) -> Dict[str, Any]:
     """
-    Return comprehensive executive analytics from MongoDB:
+    Return comprehensive executive analytics from MongoDB and resilient in-memory store:
     Issue distribution, unresolved complaints, aging complaints, and SLA performance.
     """
     now = utcnow()
-    all_complaints = list(db["complaints"].find({}))
+    try:
+        db_complaints = list(db["complaints"].find({}))
+    except Exception as e:
+        print(f"[Analytics DB Find Notice] {e}")
+        db_complaints = []
+
+    seen_ids = {c.get("id") for c in db_complaints}
+    all_complaints = list(db_complaints)
+    for c in IN_MEMORY_COMPLAINTS:
+        if c.get("id") not in seen_ids:
+            all_complaints.append(c)
+            seen_ids.add(c.get("id"))
 
     total = len(all_complaints)
     if total == 0:
@@ -189,11 +201,22 @@ def get_dashboard_metrics(db: Database = Depends(get_db)) -> Dict[str, Any]:
 
 @router.get("/hotspots")
 def get_hotspots(db: Database = Depends(get_db)) -> List[Dict[str, Any]]:
-    """Geospatial clustering of complaints from MongoDB."""
-    complaints = list(db["complaints"].find({
-        "latitude": {"$ne": None},
-        "longitude": {"$ne": None}
-    }))
+    """Geospatial clustering of complaints from MongoDB and resilient in-memory store."""
+    try:
+        db_complaints = list(db["complaints"].find({
+            "latitude": {"$ne": None},
+            "longitude": {"$ne": None}
+        }))
+    except Exception as e:
+        print(f"[Hotspots DB Find Notice] {e}")
+        db_complaints = []
+
+    seen_ids = {c.get("id") for c in db_complaints}
+    complaints = list(db_complaints)
+    for c in IN_MEMORY_COMPLAINTS:
+        if c.get("id") not in seen_ids and c.get("latitude") is not None and c.get("longitude") is not None:
+            complaints.append(c)
+            seen_ids.add(c.get("id"))
 
     clusters: List[Dict[str, Any]] = []
 
