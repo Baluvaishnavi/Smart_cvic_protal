@@ -19,8 +19,6 @@
 6. [Database Schema & Collections (MongoDB)](#-database-schema--collections-mongodb)
 7. [Role-Based Access Control (RBAC) & Default Credentials](#-role-based-access-control-rbac--default-credentials)
 8. [Installation & Local Setup Guide](#-installation--local-setup-guide)
-9. [Automated Testing Suite (31 Tests)](#-automated-testing-suite-31-tests)
-10. [Cloud Deployment (Railway)](#-cloud-deployment-railway)
 
 ---
 
