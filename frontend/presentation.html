@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Civic Portal — Project Presentation Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      user-select: none;
+      background: #0B1120;
+    }
+    .slide {
+      display: none;
+      min-height: 100vh;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.99) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @media print {
+      body { background: white !important; color: black !important; }
+      .no-print { display: none !important; }
+      .slide { display: flex !important; page-break-after: always; min-height: 100vh !important; background: white !important; color: black !important; }
+    }
+  </style>
+</head>
+<body class="text-slate-100 overflow-x-hidden">
+
+  <!-- Top Fixed Navigation Bar -->
+  <header class="no-print fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-6 py-3 flex items-center justify-between text-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-sky-500/20">
+        🏛️
+      </div>
+      <div>
+        <span class="font-bold text-white tracking-wide">Smart Civic Complaint Portal</span>
+        <span class="text-xs text-sky-400 ml-2 px-2 py-0.5 rounded bg-sky-950/60 border border-sky-800">Project Slide Deck</span>
+      </div>
+    </div>
+
+    <!-- Slide Counter & Progress -->
+    <div class="flex items-center gap-4">
+      <span id="slide-indicator" class="font-semibold text-slate-300">Slide 1 / 14</span>
+      <div class="w-32 bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700">
+        <div id="progress-bar" class="bg-gradient-to-r from-sky-500 to-indigo-500 h-full transition-all duration-300" style="width: 7.14%;"></div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex items-center gap-2">
+      <button onclick="prevSlide()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold flex items-center gap-1 transition-all">
+        ◀ Prev
+      </button>
+      <button onclick="nextSlide()" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold flex items-center gap-1 shadow-lg shadow-sky-600/30 transition-all">
+        Next ▶
+      </button>
+      <button onclick="toggleFullscreen()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-300 transition-all" title="Full Screen (F)">
+        ⛶ Fullscreen
+      </button>
+      <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-300 transition-all" title="Print to PDF">
+        🖨️ PDF
+      </button>
+      <a href="/" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold ml-2 transition-all">
+        🚀 Live App
+      </a>
+    </div>
+  </header>
+
+  <!-- Presentation Slides Container -->
+  <main class="w-full pt-16">
+
+    <!-- SLIDE 1: Title -->
+    <section class="slide active flex-col justify-center items-center px-8 py-16 text-center max-w-6xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold mb-6 uppercase tracking-wider">
+        ★ Final Year Technical Capstone Presentation
+      </div>
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+        Smart Civic Complaint & <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400">
+          Municipal Operations Portal
+        </span>
+      </h1>
+      <p class="text-lg md:text-xl text-slate-400 max-w-3xl mb-12 font-normal">
+        An AI-Powered Full-Stack Platform with Automated Rule-Based Prioritization, Dynamic SLA Tracking, and Real-Time Executive Analytics.
+      </p>
+
+      <!-- Key Pill Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl text-left">
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 shadow-xl">
+          <div class="text-2xl mb-1">⚡</div>
+          <div class="font-bold text-white text-sm">FastAPI Backend</div>
+          <div class="text-xs text-slate-400">Python 3.14 Async REST</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 shadow-xl">
+          <div class="text-2xl mb-1">🍃</div>
+          <div class="font-bold text-white text-sm">MongoDB Database</div>
+          <div class="text-xs text-slate-400">Flexible Schemas & Timelines</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 shadow-xl">
+          <div class="text-2xl mb-1">🤖</div>
+          <div class="font-bold text-white text-sm">Machine Learning</div>
+          <div class="text-xs text-slate-400">Scikit-Learn NLP Classification</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 shadow-xl">
+          <div class="text-2xl mb-1">🛡️</div>
+          <div class="font-bold text-white text-sm">Role-Based Security</div>
+          <div class="text-xs text-slate-400">Strict Single-Admin RBAC</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Problem Statement -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">01. Problem Statement</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Modern Challenges in Municipal Civic Governance</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-rose-500/30 shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 px-3 py-1 bg-rose-500/20 text-rose-400 text-[10px] font-bold rounded-bl-xl uppercase tracking-wider">Citizen Trust Gap</div>
+          <div class="text-3xl mb-4">📭</div>
+          <h3 class="font-bold text-white text-lg mb-3">Opaque Grievance Channels</h3>
+          <ul class="text-sm text-slate-300 space-y-2.5">
+            <li>• Citizens submit complaints into bureaucratic black holes.</li>
+            <li>• Zero real-time status updates prompt repetitive duplicate calls.</li>
+            <li>• No transparent Service Level Agreement (SLA) visibility.</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-amber-500/30 shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 px-3 py-1 bg-amber-500/20 text-amber-400 text-[10px] font-bold rounded-bl-xl uppercase tracking-wider">Operational Delay</div>
+          <div class="text-3xl mb-4">⏳</div>
+          <h3 class="font-bold text-white text-lg mb-3">Manual Triage & Sorting</h3>
+          <ul class="text-sm text-slate-300 space-y-2.5">
+            <li>• Municipal staff manually review hundreds of free-text submissions daily.</li>
+            <li>• High-severity hazards (gas leaks, open drains) wait behind minor noise issues.</li>
+            <li>• Recurring infrastructure failure hotspots go unnoticed.</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-sky-500/30 shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 px-3 py-1 bg-sky-500/20 text-sky-400 text-[10px] font-bold rounded-bl-xl uppercase tracking-wider">Governance Gap</div>
+          <div class="text-3xl mb-4">📊</div>
+          <h3 class="font-bold text-white text-lg mb-3">Fragmented Intelligence</h3>
+          <ul class="text-sm text-slate-300 space-y-2.5">
+            <li>• No centralized real-time dashboard for city commissioners.</li>
+            <li>• Inability to measure department-level SLA compliance accurately.</li>
+            <li>• Budget allocation relies on guesswork rather than incident density data.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Proposed Solution -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">02. Proposed Solution</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">The Smart Civic Operations Platform</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-sky-500/30 shadow-xl">
+          <div class="text-3xl mb-3">📱</div>
+          <h3 class="font-bold text-sky-400 text-lg mb-3">Citizen Self-Service</h3>
+          <ul class="text-sm text-slate-300 space-y-2.5">
+            <li>• Fast grievance reporting with photo upload and location tagging.</li>
+            <li>• Interactive category chips with manual custom category fallback box.</li>
+            <li>• Community Upvoting: Upvote existing issues to elevate civic priority.</li>
+            <li>• "My Complaints" portal with live lifecycle status progress bar.</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30 shadow-xl">
+          <div class="text-3xl mb-3">⚙️</div>
+          <h3 class="font-bold text-emerald-400 text-lg mb-3">Operations & Approvals</h3>
+          <ul class="text-sm text-slate-300 space-y-2.5">
+            <li>• Dedicated Approvals Center: Vetting queue with 1-click batch approvals.</li>
+            <li>• 4-Stage Operational Pipeline: NEW → ASSIGNED → IN_PROGRESS → RESOLVED.</li>
+            <li>• Departmental routing across 9 municipal boards (Roads, Water, Power, etc.).</li>
+            <li>• Strict single-administrator security and audit log tracking.</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-purple-500/30 shadow-xl">
+          <div class="text-3xl mb-3">🧠</div>
+          <h3 class="font-bold text-purple-400 text-lg mb-3">AI & Prioritization</h3>
+          <ul class="text-sm text-slate-300 space-y-2.5">
+            <li>• Dynamic 0–100 Rule-Based Prioritization Engine.</li>
+            <li>• NLP Machine Learning Classifier predicts category and urgency.</li>
+            <li>• Cosine Similarity duplicate grievance detection in real-time.</li>
+            <li>• Executive Analytics: Hotspot table and SLA breach monitoring.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Architecture -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">03. System Architecture</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Modular Full-Stack Engineering</h2>
+
+      <div class="space-y-4">
+        <div class="p-5 rounded-2xl bg-slate-900 border border-sky-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 text-xs font-bold">CLIENT SPA</span>
+              <h4 class="font-bold text-white">Presentation Layer (Vanilla JS + Tailwind CSS)</h4>
+            </div>
+            <p class="text-xs text-slate-400">Lightweight, fast Single Page Application with dynamic views: Citizen Portal, Approvals Center, Operations Queue, and Executive Analytics with Chart.js.</p>
+          </div>
+          <span class="text-xs font-semibold text-slate-300 bg-slate-800 px-3 py-1.5 rounded-lg whitespace-nowrap">Responsive UI</span>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900 border border-emerald-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold">REST API</span>
+              <h4 class="font-bold text-white">Application Backend (FastAPI + Python 3.14)</h4>
+            </div>
+            <p class="text-xs text-slate-400">High-concurrency asynchronous server with Pydantic validation, unified static asset serving (zero CORS latency), and automatic OpenAPI documentation.</p>
+          </div>
+          <span class="text-xs font-semibold text-slate-300 bg-slate-800 px-3 py-1.5 rounded-lg whitespace-nowrap">Async Uvicorn</span>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900 border border-purple-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-xs font-bold">DATA & ML</span>
+              <h4 class="font-bold text-white">Storage & Intelligence Layer (MongoDB + Scikit-Learn)</h4>
+            </div>
+            <p class="text-xs text-slate-400">MongoDB document store handling complaints, audit timelines, and users. In-memory Scikit-Learn TF-IDF + Logistic Classifier for sub-10ms NLP inference.</p>
+          </div>
+          <span class="text-xs font-semibold text-slate-300 bg-slate-800 px-3 py-1.5 rounded-lg whitespace-nowrap">Document DB + NLP</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Database -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">04. Data Architecture</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">MongoDB Collections & Schemas</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800">
+          <div class="font-bold text-sky-400 text-sm mb-2">complaints Collection</div>
+          <div class="text-xs font-mono text-slate-300 space-y-1 bg-slate-950 p-3 rounded-lg border border-slate-800">
+            <div>• id: "CIVIC-2026-1042"</div>
+            <div>• title, description</div>
+            <div>• category, ward_zone</div>
+            <div>• priority_score (0-100)</div>
+            <div>• priority_tier (CRITICAL)</div>
+            <div>• status (NEW → RESOLVED)</div>
+            <div>• approval_status (APPROVED)</div>
+            <div>• upvotes, sla_target_hours</div>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800">
+          <div class="font-bold text-emerald-400 text-sm mb-2">users & sessions Collections</div>
+          <div class="text-xs font-mono text-slate-300 space-y-1 bg-slate-950 p-3 rounded-lg border border-slate-800">
+            <div>• email (Unique Index)</div>
+            <div>• hashed_password (SHA-256)</div>
+            <div>• role: CITIZEN | ADMIN</div>
+            <div>• full_name, phone_number</div>
+            <div>• session_token (Bearer Auth)</div>
+            <div>• strict RBAC gatekeeping</div>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800">
+          <div class="font-bold text-purple-400 text-sm mb-2">complaint_timeline Collection</div>
+          <div class="text-xs font-mono text-slate-300 space-y-1 bg-slate-950 p-3 rounded-lg border border-slate-800">
+            <div>• complaint_id</div>
+            <div>• action (CREATED, APPROVED)</div>
+            <div>• performed_by (Officer/User)</div>
+            <div>• notes / remarks</div>
+            <div>• timestamp (ISO)</div>
+            <div>• Immutable public audit log</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Prioritization Algorithm -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">05. Dynamic Scoring</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Rule-Based Prioritization Engine</h2>
+
+      <div class="p-4 rounded-xl bg-indigo-950/40 border border-indigo-500/40 text-center mb-6">
+        <span class="text-xs text-indigo-300 font-semibold uppercase tracking-wider block mb-1">Mathematical Formula</span>
+        <code class="text-lg md:text-xl font-bold text-white">Priority Score = Base Severity + Aging Penalty + SLA Breach Penalty + Community Multiplier + Hotspot Bonus</code>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="font-bold text-sky-400 mb-2">Base Severity</div>
+          <ul class="text-xs text-slate-300 space-y-1">
+            <li>• Gas / Structural: 45 pts</li>
+            <li>• Water & Drainage: 35 pts</li>
+            <li>• Road Potholes: 30 pts</li>
+            <li>• Streetlight: 25 pts</li>
+            <li>• Waste: 20 pts</li>
+          </ul>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="font-bold text-amber-400 mb-2">Aging & SLA</div>
+          <ul class="text-xs text-slate-300 space-y-1">
+            <li>• Aging: +2.0 pts/day</li>
+            <li>• Cap: up to +20 pts</li>
+            <li>• SLA Breach: +15 pts</li>
+            <li>• Prevents backlog burying</li>
+          </ul>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="font-bold text-emerald-400 mb-2">Community Upvotes</div>
+          <ul class="text-xs text-slate-300 space-y-1">
+            <li>• Upvotes: +2.5 pts each</li>
+            <li>• Similar Reports: +5.0 pts</li>
+            <li>• Neighborhood scaling</li>
+          </ul>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="font-bold text-rose-400 mb-2">Priority Tiers</div>
+          <ul class="text-xs text-slate-300 space-y-1">
+            <li>• CRITICAL: 85–100 (12h)</li>
+            <li>• HIGH: 65–84 (24h)</li>
+            <li>• MEDIUM: 35–64 (48h)</li>
+            <li>• LOW: 0–34 (72h)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Machine Learning & NLP -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">06. Artificial Intelligence</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">NLP Classification & Duplicate Detection</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-sky-500/30">
+          <div class="text-2xl mb-2">🔤</div>
+          <h3 class="font-bold text-white text-base mb-2">Text Preprocessing</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">Normalizes citizen descriptions: lowercase conversion, special character filtering, and stopword removal.</p>
+          <div class="text-[11px] bg-slate-950 p-2.5 rounded font-mono text-sky-400 border border-slate-800">TF-IDF Unigrams + Bigrams with sublinear TF scaling</div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-indigo-500/30">
+          <div class="text-2xl mb-2">🤖</div>
+          <h3 class="font-bold text-white text-base mb-2">Multinomial Classifier</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">Predicts municipal category with probability calibration and automatic work order generation.</p>
+          <div class="text-[11px] bg-slate-950 p-2.5 rounded font-mono text-indigo-400 border border-slate-800">Scikit-Learn Logistic Regression with class-weight balancing</div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30">
+          <div class="text-2xl mb-2">🔍</div>
+          <h3 class="font-bold text-white text-base mb-2">Duplicate Detection</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">Compares new complaint vector against open complaints in the same municipal ward.</p>
+          <div class="text-[11px] bg-slate-950 p-2.5 rounded font-mono text-emerald-400 border border-slate-800">Cosine Similarity metric alerts user before redundant submit</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Citizen Experience -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">07. Citizen Experience</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Intuitive Self-Service Reporting Portal</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-3xl mb-3">📝</div>
+          <h4 class="font-bold text-white text-base mb-2">Easy Issue Reporting</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Preset category chips (Potholes, Water, Lighting, Waste) with interactive manual custom category text box for specialized issues.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-3xl mb-3">👍</div>
+          <h4 class="font-bold text-white text-base mb-2">Community Upvoting</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Allows neighbors to upvote existing issues. Automatically increases the issue priority without creating duplicate tickets.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-3xl mb-3">⏱️</div>
+          <h4 class="font-bold text-white text-base mb-2">Live Status & SLA Tracking</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Personalized "My Complaints" portal with dynamic progress bar and SLA countdown timers showing remaining resolution hours.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Operations & Approvals -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">08. Municipal Operations</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Dedicated Approvals Center & Field Queues</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-amber-500/30">
+          <h4 class="font-bold text-amber-400 text-base mb-2">Approvals Center</h4>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">Supervisor triage queue. Features multi-select checkboxes for 1-click batch approval and preset rejection remark pills.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-sky-500/30">
+          <h4 class="font-bold text-sky-400 text-base mb-2">Operations Queue</h4>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">Departmental dispatch, officer assignment, and status lifecycle updates (NEW → ASSIGNED → IN_PROGRESS → RESOLVED).</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-rose-500/30">
+          <h4 class="font-bold text-rose-400 text-base mb-2">Role-Based Guardrails</h4>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">Strict single-administrator security. Admin views hidden from citizens; protected endpoints return 403 Forbidden to unauthorized users.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Executive Analytics -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">09. Intelligence</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Executive Analytics & Hotspot Detection</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="font-bold text-white text-sm mb-2">City-Wide KPI Cards</div>
+          <p class="text-xs text-slate-400 leading-relaxed">Total Complaints, Resolution Percentage, SLA Compliance Rate, and Aging Backlog Counter (&gt; 48 hours).</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="font-bold text-white text-sm mb-2">Visual Analytics</div>
+          <p class="text-xs text-slate-400 leading-relaxed">Interactive Doughnut and Bar charts rendered via Chart.js showing status progression and department workload distribution.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="font-bold text-white text-sm mb-2">High-Priority Hotspots Table</div>
+          <p class="text-xs text-slate-400 leading-relaxed">High-contrast table ranking repeat incident intersections by recurrence count and highest severity tier.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: Testing & Verification -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">10. Code Quality</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Automated Testing & Verification</h2>
+
+      <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-center mb-6">
+        <span class="text-emerald-400 font-bold text-lg">✔ 31 of 31 Automated Tests Passing (100% Pass Rate)</span>
+        <div class="text-xs text-slate-300 mt-1">Verified on Python 3.14 with pytest across all system components</div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="font-bold text-emerald-400 mb-2">Auth & Registration (6)</div>
+          <p class="text-slate-400">Citizen registration, duplicate prevention, admin protection, RBAC token validation.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="font-bold text-sky-400 mb-2">API & Operations (7)</div>
+          <p class="text-slate-400">Lifecycle transitions, status updates, upvotes, analytics computation, custom categories.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="font-bold text-purple-400 mb-2">AI & Prioritization (11)</div>
+          <p class="text-slate-400">NLP accuracy, TF-IDF cosine similarity, aging penalties, SLA breach escalation.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="font-bold text-amber-400 mb-2">RBAC & Approvals (7)</div>
+          <p class="text-slate-400">Approval & rejection workflows, batch actions, complaint isolation, ML training benchmarking.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: Deployment Architecture -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">11. Cloud Infrastructure</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Production Deployment on Railway PaaS</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-sky-500/30">
+          <h4 class="font-bold text-sky-400 text-base mb-2">Persistent Server</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Runs persistent Uvicorn process without serverless timeouts. ML model remains loaded in memory for instant inference.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30">
+          <h4 class="font-bold text-emerald-400 text-base mb-2">1-Click MongoDB</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Integrated MongoDB provisioning with automatic MONGO_URL injection. No manual IP whitelist configuration needed.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-purple-500/30">
+          <h4 class="font-bold text-purple-400 text-base mb-2">Single-Origin Domain</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">FastAPI serves static frontend and REST APIs from one domain under HTTPS. Zero CORS cross-origin latency.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: Future Scope -->
+    <section class="slide flex-col justify-center px-8 py-16 max-w-6xl mx-auto">
+      <div class="text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">12. Roadmap</div>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Future Enhancements & Scalability</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-3xl mb-3">📱</div>
+          <h4 class="font-bold text-white text-base mb-2">Mobile Application</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Native iOS & Android mobile apps with instant GPS tagging, live camera photo capture, and push notification alerts.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-3xl mb-3">🌐</div>
+          <h4 class="font-bold text-white text-base mb-2">IoT Sensor Integration</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Automated telemetry from smart water meters and streetlights to auto-generate tickets before citizen reporting.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-3xl mb-3">💬</div>
+          <h4 class="font-bold text-white text-base mb-2">Multilingual & WhatsApp Bot</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Voice-to-text grievance filing in regional languages and 2-way conversational status tracking via WhatsApp / SMS.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: Conclusion & Q&A -->
+    <section class="slide flex-col justify-center items-center px-8 py-16 text-center max-w-6xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold mb-6 uppercase tracking-wider">
+        ✔ Summary & Impact
+      </div>
+      <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">
+        Empowering Citizens, Streamlining Municipal Action
+      </h2>
+      <p class="text-base md:text-lg text-slate-400 max-w-2xl mb-12">
+        A production-grade, transparent civic management ecosystem uniting citizens, supervisors, and field crews.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl w-full mb-12">
+        <div class="p-5 rounded-2xl bg-slate-900 border border-sky-500/30">
+          <div class="font-bold text-sky-400 mb-1">Citizen Trust</div>
+          <p class="text-xs text-slate-300">Total transparency via real-time progress bars, SLA countdowns, and community upvotes.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-slate-900 border border-amber-500/30">
+          <div class="font-bold text-amber-400 mb-1">Intelligent Priority</div>
+          <p class="text-xs text-slate-300">0–100 dynamic scoring guarantees aging and severe hazards are addressed first.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-slate-900 border border-emerald-500/30">
+          <div class="font-bold text-emerald-400 mb-1">Production Tested</div>
+          <p class="text-xs text-slate-300">100% test pass rate across 31 automated tests, strict single-admin RBAC, and cloud ready.</p>
+        </div>
+      </div>
+
+      <div class="text-sky-400 font-bold text-xl">
+        Thank You! &bull; Questions & Answers &bull; Live Demo
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const indicator = document.getElementById('slide-indicator');
+    const progressBar = document.getElementById('progress-bar');
+
+    function showSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+      currentSlide = index;
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentSlide);
+      });
+
+      indicator.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+      progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        showSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        showSlide(totalSlides - 1);
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -194,6 +194,23 @@ def hash_pw(pw: str) -> str:
 def seed_nyc_311_data(db: Database, force: bool = False):
     """Seed database with initial complaints and default citizen account."""
     if not force and db["complaints"].count_documents({}) > 0:
+        try:
+            db["users"].update_one(
+                {"email": "citizen@civicportal.gov"},
+                {"$setOnInsert": {
+                    "id": "usr_cit_default01",
+                    "name": "Sarah Jenkins",
+                    "email": "citizen@civicportal.gov",
+                    "password_hash": hash_pw("citizen123"),
+                    "phone": "(555) 019-2834",
+                    "role": "CITIZEN",
+                    "department": None,
+                    "created_at": utcnow()
+                }},
+                upsert=True
+            )
+        except Exception:
+            pass
         return db["complaints"].count_documents({})
 
     # Clear existing collections

@@ -4,21 +4,65 @@ Connects to MongoDB Server on localhost:27017 with database 'smart_civic_311'.
 """
 
 import os
-from typing import Generator
+from typing import Generator, Tuple
 import pymongo
 from pymongo.database import Database
 
+# Comprehensive detection of cloud MongoDB environment variables (Railway, Atlas, Render, Heroku)
 MONGODB_URL = (
     os.environ.get("MONGODB_URL")
     or os.environ.get("MONGO_URL")
+    or os.environ.get("MONGODB_URI")
+    or os.environ.get("MONGO_URI")
     or os.environ.get("MONGO_PRIVATE_URL")
     or os.environ.get("MONGO_PUBLIC_URL")
+    or os.environ.get("DATABASE_URL")
     or "mongodb://localhost:27017"
 )
 DB_NAME = os.environ.get("MONGODB_DB_NAME", "smart_civic_311")
 
-client = pymongo.MongoClient(MONGODB_URL, serverSelectionTimeoutMS=5000)
-db: Database = client[DB_NAME]
+# Configure client connection options (SSL/TLS, timeouts)
+client_kwargs = {
+    "serverSelectionTimeoutMS": 4000,
+    "connectTimeoutMS": 4000,
+}
+
+# Attach certifi CA certificates ONLY for cloud SSL/TLS connections (e.g. MongoDB Atlas)
+if MONGODB_URL.startswith("mongodb+srv://") or "tls=true" in MONGODB_URL.lower() or "ssl=true" in MONGODB_URL.lower():
+    try:
+        import certifi
+        client_kwargs["tlsCAFile"] = certifi.where()
+    except Exception:
+        pass
+
+try:
+    client = pymongo.MongoClient(MONGODB_URL, **client_kwargs)
+except Exception as _e:
+    print(f"[MongoDB] Client initialization notice: {_e}")
+    client = pymongo.MongoClient("mongodb://localhost:27017", serverSelectionTimeoutMS=2000)
+
+
+def _resolve_database() -> Database:
+    """Safely select database instance, honoring URI database if specified."""
+    try:
+        uri_db = client.get_default_database()
+        if uri_db is not None:
+            return uri_db
+    except Exception:
+        pass
+    return client[DB_NAME]
+
+
+db: Database = _resolve_database()
+
+
+def check_db_connection() -> Tuple[bool, str]:
+    """Test live MongoDB connection."""
+    try:
+        client.admin.command("ping")
+        return True, "Connected successfully"
+    except Exception as e:
+        return False, str(e)
 
 # Collections
 complaints_col = db["complaints"]
@@ -38,7 +82,7 @@ def init_db():
     try:
         # Ping MongoDB server
         client.admin.command("ping")
-        print(f"[MongoDB] Successfully connected to {MONGODB_URL} (Database: '{DB_NAME}')")
+        print(f"[MongoDB] Successfully connected to database '{db.name}'")
 
         # Indexes for fast querying & sorting
         complaints_col.create_index([("id", pymongo.ASCENDING)], unique=True)

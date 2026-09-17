@@ -59,10 +59,21 @@ def favicon():
 
 @app.get("/api/health")
 def health_check():
+    from app.database import check_db_connection, MONGODB_URL, db
+    import re
+    db_connected, db_msg = check_db_connection()
+    # Mask password for secure public display
+    masked_url = re.sub(r':([^@]+)@', ':****@', MONGODB_URL) if "@" in MONGODB_URL else MONGODB_URL
     return {
-        "status": "online",
+        "status": "online" if db_connected else "degraded",
         "system": "Smart Civic Complaint & Issue Management System",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "database": {
+            "connected": db_connected,
+            "database_name": db.name if db is not None else None,
+            "status_message": db_msg,
+            "target": masked_url,
+        }
     }
 
 

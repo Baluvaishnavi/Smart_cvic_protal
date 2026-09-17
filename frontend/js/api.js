@@ -3,7 +3,9 @@
  * Handles authenticated citizen submissions, single-admin workflows, and real-time operations.
  */
 
-const API_BASE = window.location.origin;
+const API_BASE = (window.location.protocol === "file:" || !window.location.origin || window.location.origin === "null")
+  ? "http://localhost:8000"
+  : (window.__API_BASE__ || window.location.origin);
 
 function getAuthHeaders(customHeaders = {}) {
   const headers = { ...customHeaders };
@@ -23,8 +25,14 @@ export const Api = {
       body: JSON.stringify({ name, email, password, phone }),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Registration failed. Please check your inputs.");
+      let msg = "";
+      try {
+        const err = await res.json();
+        msg = err.detail || err.message || "";
+      } catch (e) {
+        msg = await res.text().catch(() => "");
+      }
+      throw new Error(msg || "Registration failed. Please check your inputs.");
     }
     return res.json();
   },
@@ -36,8 +44,14 @@ export const Api = {
       body: JSON.stringify({ email, password }),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Sign-in failed. Please verify credentials.");
+      let msg = "";
+      try {
+        const err = await res.json();
+        msg = err.detail || err.message || "";
+      } catch (e) {
+        msg = await res.text().catch(() => "");
+      }
+      throw new Error(msg || "Sign-in failed. Please verify credentials.");
     }
     return res.json();
   },
